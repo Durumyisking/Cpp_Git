@@ -3,7 +3,7 @@
 
 
 
-CArr::CArr()
+CArr::CArr()		
 {
 	m_iCount = 0;
 	m_iMaxCount = 2;

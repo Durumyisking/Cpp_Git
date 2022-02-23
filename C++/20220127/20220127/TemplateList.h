@@ -76,7 +76,7 @@ void CTemplateList<T>::PushBack(const T& _Data)
 
 	
 	// 처음 입력된 데이터면
-	if (0 = = m_iCount)
+	if (0 == m_iCount)
 	{
 		m_pHeadNode = pNewNode;
 		m_pTailNode = pNewNode;
@@ -122,7 +122,7 @@ void CTemplateList<T>::ReleaseNode(_tagNode<T>* _pNode)
 	if (nullptr == _pNode)
 		return;
 
-	Release(_pNode->pNextNode);
+	
 	delete _pNode;
 }
 
