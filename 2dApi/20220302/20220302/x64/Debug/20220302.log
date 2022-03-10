@@ -1,0 +1,10 @@
+﻿  Core.cpp
+d:\cpp_git\2dapi\20220302\20220302\core.cpp(39): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+d:\cpp_git\2dapi\20220302\20220302\core.cpp(39): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\cpp_git\2dapi\20220302\20220302\core.cpp(116): warning C4244: '-=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\cpp_git\2dapi\20220302\20220302\core.cpp(123): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\cpp_git\2dapi\20220302\20220302\core.cpp(141): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\cpp_git\2dapi\20220302\20220302\core.cpp(140): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\cpp_git\2dapi\20220302\20220302\core.cpp(139): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\cpp_git\2dapi\20220302\20220302\core.cpp(138): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  20220302.vcxproj -> D:\Cpp_Git\2dApi\20220302\x64\Debug\20220302.exe
