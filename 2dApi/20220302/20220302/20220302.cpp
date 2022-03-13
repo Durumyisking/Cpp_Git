@@ -1,5 +1,5 @@
-﻿// 20220302.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
-//
+﻿
+
 
 #include "pch.h"
 #include "20220302.h"
@@ -9,14 +9,14 @@
 
 #define MAX_LOADSTRING 100
 
-// 전역 변수:
-HINSTANCE hInst;                                // 현재 인스턴스입니다.
-WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
-WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+
+HINSTANCE hInst;                                
+WCHAR szTitle[MAX_LOADSTRING];                  
+WCHAR szWindowClass[MAX_LOADSTRING];            
 
 HWND g_hWnd;
 
-// 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
+
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -30,26 +30,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	// TODO: 여기에 코드를 입력합니다.
+	
 
-	// 전역 문자열을 초기화합니다.
+	
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadStringW(hInstance, IDC_MY20220302, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 
-	// 응용 프로그램 초기화를 수행합니다:
+	
 	if (!InitInstance(hInstance, nCmdShow))
 	{
 		return FALSE;
 	}
 
-	// Core 초기화
+	
 	if (FAILED(CCore::GetInst()->init(g_hWnd, Vec2{ 1280, 768 })))
 	{
 		MessageBox(nullptr, L"Core 객체 초기화 실패", L"ERROR!!", MB_OK);
 
 		return FALSE;
-		// 인스턴스 받아서 초기화 못하면 프로그램 종료
+		
 	}
 
 
@@ -57,7 +57,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	MSG msg;
 
-	// 기본 메시지 루프입니다:
+	
 	while (true)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -66,19 +66,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				break;
 
 			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-				// 들어온 메시지가 단축키 테이블에 있는 정보인지 먼저 체크
+				
 
 			{
-				// getmessage로 얻어온 메시지를 처리
-				TranslateMessage(&msg); // 메시지 분석
-				DispatchMessage(&msg); // 관련 처리기로 전송
+				
+				TranslateMessage(&msg); 
+				DispatchMessage(&msg); 
 			}
 		}
 		else
 		{
-			// 메시지가 없는동안 호출
-			// game 코드 수행
-			// 디자인 패턴 : singleton
+			
+			
+			
 
 			CCore::GetInst()->progress();
 		}
@@ -89,11 +89,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 
-//
-//  함수: MyRegisterClass()
-//
-//  용도: 창 클래스를 등록합니다.
-//
+
+
+
+
+
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
 	WNDCLASSEXW wcex;
@@ -115,19 +115,19 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	return RegisterClassExW(&wcex);
 }
 
-//
-//   함수: InitInstance(HINSTANCE, int)
-//
-//   용도: 인스턴스 핸들을 저장하고 주 창을 만듭니다.
-//
-//   주석:
-//
-//        이 함수를 통해 인스턴스 핸들을 전역 변수에 저장하고
-//        주 프로그램 창을 만든 다음 표시합니다.
-//
+
+
+
+
+
+
+
+
+
+
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-	hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+	hInst = hInstance; 
 
 	g_hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
@@ -149,13 +149,13 @@ using std::vector;
 
 struct tObjInfo
 {
-	POINT g_ptObjPos; // int 2개로 구성된 구조체
+	POINT g_ptObjPos; 
 	POINT g_ptObjScale;
 };
 
 vector <tObjInfo> g_vecInfo;
 
-// 좌 상단
+
 POINT g_ptLT;
 POINT g_ptRB;
 
@@ -168,7 +168,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_COMMAND:
 	{
 		int wmId = LOWORD(wParam);
-		// 메뉴 선택을 구문 분석합니다:
+		
 		switch (wmId)
 		{
 		case IDM_ABOUT:
@@ -188,10 +188,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		HDC hdc = BeginPaint(hWnd, &ps);
 
 
-		// Rectangle(hdc, 1180, 668, 1280, 768);
+		
 
-		// 윈도우에 무효화영역이 없음을 알리는 EndPaint를 주석
-		// 따라서 WM_PAINT가 스택에 쫙 쌓임 = 오류
+		
+		
 		EndPaint(hWnd, &ps);
 	}
 	break;
@@ -204,7 +204,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-// 정보 대화 상자의 메시지 처리기입니다.
+
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);
