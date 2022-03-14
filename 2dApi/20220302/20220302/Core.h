@@ -1,73 +1,5 @@
 ﻿#pragma once
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class CCore
 {
 
@@ -98,9 +30,6 @@ public:
 	int init(HWND _hWnd, Vec2 _vResolution);
 	void progress();
 
-private:
-	void update();
-	void render();
 
 public:
 	HWND GetMainHwnd() { return m_hWnd; } 

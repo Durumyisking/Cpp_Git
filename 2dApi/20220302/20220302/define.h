@@ -27,4 +27,31 @@
 
 
 
+// Scene에 들어있는 Object들을 분류하는 작업
+enum class GROUP_TYPE
+{
+	DEFAULT,
 
+	PLAYER,
+
+	MISSILE,
+
+	MONSTER,
+
+
+
+	END = 32,
+};
+
+
+enum class SCENE_TYPE
+{
+	TOOL, // 게임 만드는 씬
+	START,
+	STAGE_01,
+	STAGE_02,
+
+
+
+	END,
+};

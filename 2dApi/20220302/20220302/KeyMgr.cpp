@@ -60,7 +60,7 @@ void CKeyMgr::update()
 
 	// 아무 윈도우에서나 작동하고 싶으면
 	// if문이 true이면 됨
-	if (true)
+	if (nullptr != hWnd)
 	{
 
 		for (int i = 0; i < (int)KEY::LAST; ++i)

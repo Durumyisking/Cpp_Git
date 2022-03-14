@@ -20,14 +20,26 @@
     <Filter Include="Engine\03. Manager">
       <UniqueIdentifier>{1eafad5b-8509-49b2-b57c-f6525acf7989}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Object">
-      <UniqueIdentifier>{d58864fb-f0b8-4b1f-9545-13ef7f85cd67}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\03. Manager\KeyMgr">
       <UniqueIdentifier>{d21967ec-14e9-4627-af87-590d0fb515f2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\03. Manager\TimeMgr">
       <UniqueIdentifier>{a4adfbeb-9600-4803-b713-c1c1e7be6ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\SceneMgr">
+      <UniqueIdentifier>{1fbadd8c-628f-4c32-8582-44599731a310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object">
+      <UniqueIdentifier>{d58864fb-f0b8-4b1f-9545-13ef7f85cd67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Scene">
+      <UniqueIdentifier>{43477c02-dede-4791-bdd8-60016e817ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Scene\Scene_Start">
+      <UniqueIdentifier>{f0e371c5-37e7-469f-8d44-2288a0caa6bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Scene\Scene_Tool">
+      <UniqueIdentifier>{331e697e-28bd-4613-b4e5-f9df3e92d07d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +60,7 @@
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Object.h">
-      <Filter>04. Object</Filter>
+      <Filter>Engine\04. Object</Filter>
     </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>Engine\01. Header</Filter>
@@ -59,6 +71,15 @@
     <ClInclude Include="TimeMgr.h">
       <Filter>Engine\03. Manager\TimeMgr</Filter>
     </ClInclude>
+    <ClInclude Include="SceneMgr.h">
+      <Filter>Engine\03. Manager\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Engine\05. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Start.h">
+      <Filter>Engine\05. Scene\Scene_Start</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -68,13 +89,22 @@
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>04. Object</Filter>
+      <Filter>Engine\04. Object</Filter>
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>Engine\03. Manager\KeyMgr</Filter>
     </ClCompile>
     <ClCompile Include="TimeMgr.cpp">
       <Filter>Engine\03. Manager\TimeMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMgr.cpp">
+      <Filter>Engine\03. Manager\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Engine\05. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Start.cpp">
+      <Filter>Engine\05. Scene\Scene_Start</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
