@@ -9,15 +9,20 @@ class CObject;	// 전방선언이라 아직 이게 우리의 CObject인지 모름
 			
 class CScene
 {
-private:
+
+
+protected:
 	// 모든 OBject 클래스의 부모 클래스로써 모든 자식 클래스의 포인터를 받을 수 있음
 	vector<CObject*>	m_arrObj[(UINT)GROUP_TYPE::END]; // Obj 그룹을 담은 벡터를 배열로 선언
 	wstring				m_strName; // Scene이름
+
+	float				m_fTimeCount;
 
 
 public:
 	CScene();
 	virtual ~CScene();
+
 
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
@@ -26,6 +31,8 @@ public:
 	// 모든 Scene이 같은 update와 render를 쓸꺼니까 굳이 virtual 안씀
 	void update();
 	void render(HDC _dc);
+
+
 
 public:
 	virtual void Enter() = 0;	// 해당 Scene을 진입시 호출
@@ -37,14 +44,17 @@ public:
 						 		// 순수 가상함수의 장점 2가지임
 
 	virtual void Exit() = 0;	// 해당 Scene을 탈출시 호출
-	
 
 
-protected:
+	virtual void StageEvent() = 0;
+
+
+
+public:
 	void AddObject(CObject* _Obj, GROUP_TYPE _eType)
 	{
 		// 변수를 protected해도 되지만 실수를 방지하기위해
-		// protected로 함수로 만들어서 처리
+		// protected 함수로 만들어서 처리 ==> 다시 플레이어에서 미사일을 쏘기위해 public으로 바꿈
 		// 특히 불필요한 함수를 사용중이니 inline함수로 만들어서 호출비용 없음
 		m_arrObj[(UINT)_eType].push_back(_Obj);
 	}

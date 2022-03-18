@@ -38,6 +38,7 @@ void CSceneMgr::init()
 
 void CSceneMgr::update()
 {
+	m_pCurScene->StageEvent();
 	m_pCurScene->update();
 }
 

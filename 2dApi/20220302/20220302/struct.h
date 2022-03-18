@@ -6,6 +6,9 @@ struct Vec2
 	float y;
 
 public:
+
+
+public:
 	Vec2()
 		: x(0.f)
 		, y(0.f)
@@ -20,7 +23,10 @@ public:
 		: x((float)_x)
 		, y((float)_y)
 	{}
-
+	Vec2(const Vec2& _vec)
+		: x((float)_vec.x)
+		, y((float)_vec.y)
+	{}
 
 
 

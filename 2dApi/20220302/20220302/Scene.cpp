@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "Scene.h"
 
+#include "TimeMgr.h"
+
 
 CScene::CScene()
+	:m_fTimeCount(0)
 {
 }
 
@@ -22,13 +25,17 @@ CScene::~CScene()
 
 void CScene::update()
 {
+	m_fTimeCount += fDT;
+
+	
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)
 	{
 		for (size_t j = 0; j < m_arrObj[i].size(); ++j)
 		{
-			m_arrObj[i][j]->update();
+			m_arrObj[i][j]->update(); 
 		}
 	}
+
 }
 
 void CScene::render(HDC _dc)

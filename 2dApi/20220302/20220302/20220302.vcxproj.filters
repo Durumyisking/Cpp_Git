@@ -41,6 +41,15 @@
     <Filter Include="Engine\05. Scene\Scene_Tool">
       <UniqueIdentifier>{331e697e-28bd-4613-b4e5-f9df3e92d07d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04. Object\Player">
+      <UniqueIdentifier>{ec381187-9490-4750-8978-b5dc1efa382d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\Monster">
+      <UniqueIdentifier>{00b723fb-45dc-42ae-a98f-b57e11e5fd01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\Missile">
+      <UniqueIdentifier>{372d995f-d139-47e0-b40c-ae67df962444}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -59,9 +68,6 @@
       <Filter>Engine\01. Header</Filter>
     </ClInclude>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Object.h">
-      <Filter>Engine\04. Object</Filter>
-    </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>Engine\01. Header</Filter>
     </ClInclude>
@@ -79,6 +85,18 @@
     </ClInclude>
     <ClInclude Include="Scene_Start.h">
       <Filter>Engine\05. Scene\Scene_Start</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Engine\04. Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Engine\04. Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Engine\04. Object\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Engine\04. Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +123,15 @@
     </ClCompile>
     <ClCompile Include="Scene_Start.cpp">
       <Filter>Engine\05. Scene\Scene_Start</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Engine\04. Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Engine\04. Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Engine\04. Object\Missile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

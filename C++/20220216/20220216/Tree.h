@@ -477,7 +477,7 @@ typename CTree<T1, T2>::iterator CTree<T1, T2>::erase(const iterator & _iter)
 	assert(this == _iter.m_pTree);
 
 		
-	return iterator(this, DeleteNode(_iter.m_pNode);
+	return iterator(this, DeleteNode(_iter.m_pNode));
 
 }
 

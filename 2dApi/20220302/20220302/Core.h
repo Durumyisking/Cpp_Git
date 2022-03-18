@@ -33,6 +33,6 @@ public:
 
 public:
 	HWND GetMainHwnd() { return m_hWnd; } 
-
+	Vec2 GetResolution() { return m_vResolution; }
 
 };

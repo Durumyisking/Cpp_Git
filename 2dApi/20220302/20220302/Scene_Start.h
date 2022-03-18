@@ -3,6 +3,10 @@
 class CScene_Start :
 	public CScene
 {
+
+private:
+	float m_fWave;
+
 public:
 	CScene_Start();
 	~CScene_Start();
@@ -10,5 +14,9 @@ public:
 public:
 	virtual void Enter();	// virtual 안적어도 되는데 헷갈릴까봐 적어줌
 	virtual void Exit();
+
+public:
+	virtual void StageEvent();
 };
 
+	

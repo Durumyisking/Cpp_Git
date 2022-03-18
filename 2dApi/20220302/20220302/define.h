@@ -25,6 +25,19 @@
 #define fDT CTimeMgr::GetInst()->GetfDT()
 #define DT CTimeMgr::GetInst()->GetDT()
 
+#define KEY_CHECK(key, state) CKeyMgr::GetInst()->GetKeyState(key) == state
+#define KEY_HOLD(key) KEY_CHECK(key, KEY_STATE::HOLD)
+#define KEY_TAP(key) KEY_CHECK(key, KEY_STATE::TAP)
+#define KEY_AWAY(key) KEY_CHECK(key, KEY_STATE::AWAY)
+#define KEY_NONE(key) KEY_CHECK(key, KEY_STATE::NONE)
+
+//#define OBJUPDATE() for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)\
+//					{\
+//						for (size_t j = 0; j < m_arrObj[i].size(); ++j)\
+//						{\
+//							m_arrObj[i][j]->update();\
+//						}\
+//					}\
 
 
 // Scene에 들어있는 Object들을 분류하는 작업

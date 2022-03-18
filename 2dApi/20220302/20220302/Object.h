@@ -18,8 +18,8 @@ public:
 	Vec2 GetScale() { return m_vSclae; }
 
 public:
-	void update();
-	void render(HDC _dc);
+	virtual void update() = 0;
+	virtual void render(HDC _dc);
 
 };
 
