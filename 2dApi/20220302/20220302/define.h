@@ -10,6 +10,8 @@
 */
 
 
+// static으로 받아 초기화를 한 번만 진행
+// static으로 받았기 때문에 mgr이 있으면 기존의 mgr을 return 그렇지 않으면 방금만든 mgr return
 
 #define SINGLE(type) public:\
 						 static type* GetInst() \
@@ -30,6 +32,9 @@
 #define KEY_TAP(key) KEY_CHECK(key, KEY_STATE::TAP)
 #define KEY_AWAY(key) KEY_CHECK(key, KEY_STATE::AWAY)
 #define KEY_NONE(key) KEY_CHECK(key, KEY_STATE::NONE)
+
+
+#define PI 3.14159265385
 
 //#define OBJUPDATE() for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)\
 //					{\

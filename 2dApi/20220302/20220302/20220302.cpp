@@ -1,7 +1,4 @@
-﻿
-
-
-#include "pch.h"
+﻿#include "pch.h"
 #include "20220302.h"
 #include "Core.h"
 
@@ -23,10 +20,14 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-	_In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPWSTR    lpCmdLine,
-	_In_ int       nCmdShow)
+						_In_opt_ HINSTANCE hPrevInstance,
+						_In_ LPWSTR    lpCmdLine,
+						_In_ int       nCmdShow)
 {
+	// Memory Leak check
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	// _crtBreakAlloc(); // 메모리 누수 문제가 생겼을때 문제의 해당 지점에 중단점 걸어줌
+
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -76,10 +77,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		else
 		{
-			
-			
-			
-
 			CCore::GetInst()->progress();
 		}
 	}

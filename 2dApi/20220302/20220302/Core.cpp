@@ -4,6 +4,7 @@
 #include "TimeMgr.h"
 #include "KeyMgr.h"
 #include "SceneMgr.h"
+#include "PathMgr.h"
 
 #include "Object.h"
 
@@ -36,7 +37,7 @@ int CCore::init(HWND _hWnd, Vec2 _vResolution)
 
 
 	
-	RECT rt = { 0, 0, m_vResolution.x, m_vResolution.y };
+	RECT rt = { 0.f, 0.f, m_vResolution.x, m_vResolution.y };
 	
 	
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, true); 
@@ -58,6 +59,8 @@ int CCore::init(HWND _hWnd, Vec2 _vResolution)
 	// 매니저 초기화
 	CTimeMgr::GetInst()->init();
 	CKeyMgr::GetInst()->init();
+	CPathMgr::GetInst()->init();
+
 	CSceneMgr::GetInst()->init();
 
 	return S_OK;
@@ -69,6 +72,8 @@ void CCore::progress()
 	// Mgr update
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
+	CPathMgr::GetInst()->update();
+
 	CSceneMgr::GetInst()->update();
 	
 	// =========
@@ -76,12 +81,12 @@ void CCore::progress()
 	// =========
 
 	// 화면 클리어
-	Rectangle(m_memDC, -1, -1, m_vResolution.x + 1, m_vResolution.y + 1);
+	Rectangle(m_memDC, -1, -1, (int)m_vResolution.x + 1, (int)m_vResolution.y + 1);
 
 
 	CSceneMgr::GetInst()->render(m_memDC);
 
-	BitBlt(m_hDC, 0, 0, m_vResolution.x, m_vResolution.y,
+	BitBlt(m_hDC, 0, 0, (int)m_vResolution.x, (int)m_vResolution.y,
 		m_memDC, 0, 0, SRCCOPY); // hdc에서 지정한 크기만큼 복사할 dc의 지정한 위치에서 한픽셀씩 복사
 
 	

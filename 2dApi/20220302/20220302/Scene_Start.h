@@ -6,7 +6,6 @@ class CScene_Start :
 
 private:
 	float m_fWave;
-
 public:
 	CScene_Start();
 	~CScene_Start();
@@ -17,6 +16,8 @@ public:
 
 public:
 	virtual void StageEvent();
+
+
 };
 
 	

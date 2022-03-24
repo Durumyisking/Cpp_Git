@@ -6,7 +6,18 @@ struct Vec2
 	float y;
 
 public:
+	float Length() { return sqrt(x * x + y * y); } // 빗변
 
+	Vec2& Nomalize()
+	{
+		float fLen = Length();
+
+		assert(fLen != 0.f); // 분모가 0이면 inf되니까 예외처리
+		x /= fLen;
+		y /= fLen;
+
+		return *this;
+	}
 
 public:
 	Vec2()

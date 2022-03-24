@@ -50,6 +50,21 @@
     <Filter Include="Engine\04. Object\Missile">
       <UniqueIdentifier>{372d995f-d139-47e0-b40c-ae67df962444}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\06. Resource">
+      <UniqueIdentifier>{1b418714-eace-449e-9f06-f9cf5f6ad671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. Resource\Texture">
+      <UniqueIdentifier>{b812942f-3293-48d7-8dfc-702c03cf23cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. Resource\Sound">
+      <UniqueIdentifier>{e07e73ee-6647-40e5-a652-f10b04b9c66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\PathMgr">
+      <UniqueIdentifier>{89c3a7ab-8130-4310-a09e-00d5e438fe75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\ResMgr">
+      <UniqueIdentifier>{e9a17183-9cd3-40ca-b126-17d7ff9646c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -98,6 +113,21 @@
     <ClInclude Include="Object.h">
       <Filter>Engine\04. Object</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Engine\06. Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\06. Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="PathMgr.h">
+      <Filter>Engine\03. Manager\PathMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Res.h">
+      <Filter>Engine\06. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResMgr.h">
+      <Filter>Engine\03. Manager\ResMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -132,6 +162,24 @@
     </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>Engine\04. Object\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="basic_math.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Engine\06. Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\06. Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="PathMgr.cpp">
+      <Filter>Engine\03. Manager\PathMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Res.cpp">
+      <Filter>Engine\06. Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResMgr.cpp">
+      <Filter>Engine\03. Manager\ResMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

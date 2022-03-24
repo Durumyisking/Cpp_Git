@@ -18,7 +18,6 @@ private:
 	UINT			m_iCallCount; 
 	UINT			m_iFPS;
 
-
 	
 	
 
@@ -29,6 +28,8 @@ public:
 public:
 	double GetDT() { return m_dDeltaTime; }
 	float GetfDT() { return (float)m_dDeltaTime; }
-	
+
+
+
 };
 

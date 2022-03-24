@@ -1,11 +1,15 @@
 #pragma once
 
-#include"Object.h"
+#include "Object.h"
+#include "Texture.h"
+
 class CObject;	// 전방선언이라 아직 이게 우리의 CObject인지 모름
 				// 직접 헤더를 참조하면 CObject쪽의 코드가 변경되면
 				// 여기 클래스의 코드도 매번 확인해줘야해서 컴파일이 오래걸림
 				// 이 클래스에서는 Object가 있는걸 알기만 하면 괜찮아서
 				// 이 타입에 대한 정보를 받아오려면 포인터로만 가능
+
+
 			
 class CScene
 {
@@ -17,7 +21,7 @@ protected:
 	wstring				m_strName; // Scene이름
 
 	float				m_fTimeCount;
-
+	CTexture*			m_pTex;
 
 public:
 	CScene();

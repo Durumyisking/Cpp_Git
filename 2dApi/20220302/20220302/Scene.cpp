@@ -6,6 +6,7 @@
 
 CScene::CScene()
 	:m_fTimeCount(0)
+	,m_pTex(nullptr)
 {
 }
 
