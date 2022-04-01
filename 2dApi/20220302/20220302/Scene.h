@@ -32,9 +32,15 @@ public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
 
+	// 원본을 참조후 원본에 손상이 안가게 const 붙임
+	const vector <CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
+
+
 	// 모든 Scene이 같은 update와 render를 쓸꺼니까 굳이 virtual 안씀
 	void update();
-	void render(HDC _dc);
+	void finalupdate(); // update된것을 마무리 후 확정시켜주는 함수
+
+	virtual void render(HDC _dc);
 
 
 

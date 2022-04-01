@@ -3,8 +3,12 @@
 
 #include "Player.h"
 #include "Monster.h"
+#include "Scene.h"
+#include"Collider.h"
 
 #include "TimeMgr.h"
+#include "SceneMgr.h"
+#include "ResMgr.h"
 
 #include "Core.h"
 
@@ -12,12 +16,20 @@
 CMissile::CMissile()
 	: m_fTheta(PI / 2.f)
 	, m_vDir(Vec2(0.f, -1.f))
-	, m_vStartvec()
+	, m_vStartvec(Vec2(0.f, 0.f))
+	, m_eType(MISSILE_TYPE::DEFAULT)
 	, m_fModifyXDir(0.1f)
 	, m_fModifyYDir(0.f)
+	, m_fSpeedx(0.f)
+	, m_fSpeedy(0.f)
 	, m_bCase(false)
+	, m_pTex(nullptr)
 {
 	m_vDir.Nomalize();
+
+	CreateCollider();
+	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
+	GetCollider()->SetScale(Vec2(10.f, 10.f));
 }
 
 
@@ -29,7 +41,59 @@ CMissile::~CMissile()
 void CMissile::update()
 {
 
-	MissileType();
+		Vec2 vPos = GetPos();
+
+		switch (m_eType)
+		{
+
+		case MISSILE_TYPE::DEFAULT:
+		{
+			
+			m_fSpeedx = 0.f;
+			m_fSpeedy = 800.f;
+
+			vPos.x += m_fSpeedx * m_vDir.x * fDT;
+			vPos.y += m_fSpeedy * m_vDir.y * fDT;
+
+			SetPos(vPos);
+		}
+		break;
+
+		case MISSILE_TYPE::ZIGJAG:
+		{
+			
+			m_fSpeedx = 500.f;
+			m_fSpeedy = 300.f;
+
+			vPos.x += m_fSpeedx * m_vDir.x * fDT;
+			vPos.y += m_fSpeedy * m_vDir.y * fDT;
+
+			float fMaxdistance = 50.f;
+
+			float fMaxRight = m_vStartvec.x + fMaxdistance;
+			float fMaxLeft = m_vStartvec.x - fMaxdistance;
+
+			if (GetPos().x > fMaxRight)
+			{
+				SetPos(Vec2(fMaxRight, vPos.y));
+				m_vDir.x *= -1;
+			}
+			else if (GetPos().x < fMaxLeft)
+			{
+				SetPos(Vec2(fMaxLeft, vPos.y));
+				m_vDir.x *= -1;
+			}
+
+			else
+				SetPos(vPos);
+
+			return;
+		}
+		break;
+
+		default:
+			break;
+	}
 
 	if (0 > GetPos().y)
 	{
@@ -42,66 +106,75 @@ void CMissile::update()
 
 void CMissile::render(HDC _dc)
 {
+
+	int iWidth = (int)m_pTex->Width();
+	int iHeight = (int)m_pTex->Height(); 
+
+
 	Vec2 vPos = GetPos();
-	Vec2 vScale = GetScale();
 
+	TransparentBlt(_dc
+		, (int)(vPos.x - (float)(iWidth / 2))
+		, (int)(vPos.y - (float)(iHeight / 2))
+		, iWidth, iHeight
+		, m_pTex->GetDC()
+		, 0, 0, iWidth, iHeight
+		, RGB(255, 0, 255));
 
-	Ellipse(_dc,
-		(int)vPos.x - vScale.x / 2.f,
-		(int)vPos.y - vScale.y / 2.f,
-		(int)vPos.x + vScale.x / 2.f,
-		(int)vPos.y + vScale.y / 2.f);
+	component_render(_dc);
 }
 
-void CMissile::MissileType()
+void CMissile::CreateMissile(MISSILE_TYPE _eType, Vec2 _vStartPos, GROUP_TYPE _eShooter)
 {
-	Vec2 vPos = GetPos();
+	Vec2 vMissilePos = _vStartPos; // 현재 플레이어의 위치 가져옴
+	vMissilePos.y -= GetScale().y / 2.f;
 
-	switch (m_iType)
+	SetPos(vMissilePos);
+	SetStartVec(Vec2(vMissilePos));
+	SetScale(Vec2(10.f, 10.f));
 
-
+	switch (_eType)
 	{
-	case 1:
-	{
-//		vPos.x += 400.f * cosf(m_fTheta) * fDT;
-//		vPos.y -= 400.f * sinf(m_fTheta) * fDT;
+	case MISSILE_TYPE::DEFAULT:
+		SetType(MISSILE_TYPE::DEFAULT);
+		m_pTex = CResMgr::GetInst()->LoadTexture(L"Missile_1Tex", L"texture\\Missile\\Missile_1.bmp");
+		if(GROUP_TYPE::PLAYER == _eShooter)
+			SetDir(Vec2(0.f, -1.f));
+		else if (GROUP_TYPE::MONSTER == _eShooter)
+			SetDir(Vec2(0.f, 1.f));
 
-		vPos.x += 400.f * m_vDir.x * fDT;
-		vPos.y += 400.f * m_vDir.y * fDT;
-
-		SetPos(vPos);
-	}
-		break;
-	case 2:
-	{	
-		vPos.x += 500.f * m_vDir.x * fDT;
-		vPos.y += 200.f * m_vDir.y * fDT;
-
-
-		if (GetPos().x > m_vStartvec.x + 100.f)
-		{
-			SetPos(Vec2(m_vStartvec.x + 100, vPos.y));
-			m_vDir.x *= -1;
-		}
-		else if (GetPos().x < m_vStartvec.x - 100.f)
-		{
-			SetPos(Vec2(m_vStartvec.x - 100.f, vPos.y));
-			m_vDir.x *= -1;
-		}
-		
-		else 
-			SetPos(vPos);
-
-		return;
-	}
 		break;
 
-	case 3:
-	{
+	case MISSILE_TYPE::ZIGJAG:
+		m_pTex = CResMgr::GetInst()->LoadTexture(L"Missile_2Tex", L"texture\\Missile\\Missile_2.bmp");
+		SetType(MISSILE_TYPE::ZIGJAG);
+		if (GROUP_TYPE::PLAYER == _eShooter)
+			SetDir(Vec2(1.f, -1.f));
+		else if (GROUP_TYPE::MONSTER == _eShooter)
+			SetDir(Vec2(-1.f, 1.f));
+		break;
 
-	}
+
 
 	default:
 		break;
 	}
+
+	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
+	pCurScene->AddObject(this, GROUP_TYPE::MISSILE);
 }
+
+void CMissile::OnCollision(CCollider * _pOther)
+{
+}
+
+void CMissile::OnCollisionEnter(CCollider * _pOther)
+{
+}
+
+void CMissile::OnCollisionExit(CCollider * _pOther)
+{
+}
+
+
+

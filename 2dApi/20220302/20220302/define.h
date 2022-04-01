@@ -73,3 +73,30 @@ enum class SCENE_TYPE
 
 	END,
 };
+
+enum class MISSILE_TYPE
+{
+	DEFAULT, // 직선
+	ZIGJAG, // 지그재그
+	
+
+	MONSTER_DEFAULT, // 몬스터 직선
+	END,
+};
+
+
+enum class BRUSH_TYPE
+{
+	HOLLOW,
+	END,
+
+};
+
+enum class PEN_TYPE
+{
+	RED,
+	GREEN,
+	BLUE,
+
+	END,
+};

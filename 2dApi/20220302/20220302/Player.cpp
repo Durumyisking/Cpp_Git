@@ -1,10 +1,8 @@
 #include "pch.h"
 #include "Player.h"
-
 #include"Missile.h"
-
-
 #include "Scene.h"
+#include "Collider.h"
 
 #include "TimeMgr.h"
 #include "KeyMgr.h"
@@ -16,8 +14,10 @@ CPlayer::CPlayer()
 	: m_dPrevTime(fDT)
 	, m_pTex(nullptr)
 {
-
 	m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\Player\\Player_1.bmp");
+	CreateCollider();
+	GetCollider()->SetOffsetPos(Vec2(0.f, -10.f));
+	GetCollider()->SetScale(Vec2(40.f, 40.f));
 }
 
 
@@ -61,23 +61,31 @@ void CPlayer::update()
 		else
 			vPos.x += 200.f * fDT;
 	}
+
+	// 직선 미사일
 	if (KEY_TAP(KEY::SPACE))
 	{
 //		if (0.f > 0.f - m_dPrevTime)
 //		{
-		CreateMissile(1);
+		CMissile* pMissile = new CMissile;
+		pMissile->CreateMissile(MISSILE_TYPE::DEFAULT , GetPos(), GROUP_TYPE::PLAYER);
 		//m_dPrevTime = 0.f;
 //		}
 	}
 
+	// 지그재그 미사일
+	// (꼬불꼬불 미사일은 cos함수로 구현하자)
 	if (KEY_TAP(KEY::Z))
 	{
-		CreateMissile(2);
+		CMissile* pMissile = new CMissile;
+		pMissile->CreateMissile(MISSILE_TYPE::ZIGJAG, GetPos(), GROUP_TYPE::PLAYER);
 	}
 
+	// 유도 미사일 (아직 미구현)
 	if (KEY_TAP(KEY::X))
 	{
-		CreateMissile(3);
+		//CMissile* pMissile = new CMissile;
+		//pMissile->CreateMissile(3);
 	}
 
 
@@ -86,64 +94,50 @@ void CPlayer::update()
 
 void CPlayer::render(HDC _dc)
 {
-	
+	int iWidth = (int)m_pTex->Width();
+	int iHeight = (int)m_pTex->Height(); //Tex.Wid/height는 unsignedint지만 우리 maindc에서는 이 텍스처가 화면을 넘어갈 수도 있기 때문에 넘어가면 비트값에 문제가 생겨 int로 캐스팅
 
 
 	Vec2 vPos = GetPos();
-	Vec2 vScale = GetScale();
 
-	HPEN hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-	HBRUSH hBlueBrush = CreateSolidBrush(RGB(0, 0, 255));
+	// 계산하기전에 정확하게 하기위해 실수로 계산	
+	//BitBlt(_dc
+	//	, (int)(vPos.x - (float)(iWidth / 2))
+	//	, (int)(vPos.y - (float)(iHeight / 2))
+	//	, iWidth, iHeight
+	//	, m_pTex->GetDC()
+	//	, 0, 0, SRCCOPY);
 
+	// 얘는 원본 src의 좌상단만 알려주는게 아니라
+	// 원본 src의 좌상단으로부터 어디까지 지울거냐 하는 좌표도 받음
 
-	HBRUSH hDefaultBrush = (HBRUSH)SelectObject(_dc, hBlueBrush);
+	// lnk 1120 뜬다는것은 우리가 헤더를 참조했기 때문에
+	// 이 함수가 존재하는것은 알고있음 그래서 호출까지 가능함
+	// 근데 실제 구현부는 몰라서 링크하는데 문제가생김
+	// 그래서 구현파트도 참조해야함
+	TransparentBlt(_dc
+		, (int)(vPos.x - (float)(iWidth / 2))
+		, (int)(vPos.y - (float)(iHeight / 2))
+		, iWidth, iHeight
+		, m_pTex->GetDC()
+		, 0, 0, iWidth, iHeight
+		, RGB(255, 0, 255));
 
-	Ellipse(_dc,
-		(int)vPos.x - vScale.x / 2.f,
-		(int)vPos.y - vScale.y / 2.f,
-		(int)vPos.x + vScale.x / 2.f,
-		(int)vPos.y + vScale.y / 2.f);
+	// 컴포넌트 (충돌체, etc...)가 잉ㅆ는 경우 렌더
+	component_render(_dc);
 
-
-	SelectObject(_dc, hDefaultBrush);
-
-	DeleteObject(hBlueBrush);
 }
 
-void CPlayer::CreateMissile(int _iType)
+void CPlayer::OnCollision(CCollider * _pOther)
 {
-	CMissile* pMissile = new CMissile;
+	
+}
 
-	Vec2 vMissilePos = GetPos(); // 현재 플레이어의 위치 가져옴
-	vMissilePos.y -= GetScale().y / 2.f;
+void CPlayer::OnCollisionEnter(CCollider * _pOther)
+{
+}
 
-	pMissile->SetPos(vMissilePos);
-	pMissile->SetStartVec(Vec2(vMissilePos));
-	pMissile->SetScale(Vec2(10.f, 10.f));
-
-	switch (_iType)
-	{
-	case 1:
-		pMissile->SetType(1);
-		pMissile->SetDir(Vec2(0.f, -1.f));
-		break;
-
-	case 2:
-		pMissile->SetType(2);
-		pMissile->SetDir(Vec2(1.f, -1.f));
-		break;
-
-	case 3:
-		pMissile->SetType(3);
-		pMissile->SetDir(Vec2(0.f, -1.f));
-		break;
-
-
-	default:
-		break;
-	}
-
-	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
-	pCurScene->AddObject(pMissile, GROUP_TYPE::MISSILE);
+void CPlayer::OnCollisionExit(CCollider * _pOther)
+{
 }
 

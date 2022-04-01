@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object.h"
+#include "Texture.h"
 
 class CMissile :
 	public CObject
@@ -11,12 +12,16 @@ private:
 	Vec2		m_vDir;
 	Vec2		m_vStartvec;
 
-	int			m_iType;	// 미사일 타입
+	MISSILE_TYPE m_eType;	// 미사일 타입
 
 	float		m_fModifyXDir;
 	float		m_fModifyYDir;
 	
+	float		m_fSpeedx;
+	float		m_fSpeedy;
+
 	bool		m_bCase;
+	CTexture*	m_pTex;
 
 public:
 	CMissile();
@@ -30,7 +35,7 @@ public:
 		m_vDir.Nomalize();
 	}
 	
-	void SetType(int _iType) { m_iType = _iType; }
+	void SetType(MISSILE_TYPE _eType) { m_eType = _eType; }
 
 	void SetStartVec(Vec2 _vec) { m_vStartvec = _vec; }
 
@@ -41,7 +46,13 @@ public:
 	virtual void render(HDC _dc);
 
 public:
-	void MissileType();
+	void CreateMissile(MISSILE_TYPE _eType, Vec2 _vStartPos, GROUP_TYPE _eShooter);
+	
+public:
+	virtual void OnCollision(CCollider* _pOther);
+	virtual void OnCollisionEnter(CCollider* _pOther);
+	virtual void OnCollisionExit(CCollider* _pOther);
+
 
 
 };

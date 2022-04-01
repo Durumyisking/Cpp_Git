@@ -5,7 +5,9 @@ class CScene_Start :
 {
 
 private:
-	float m_fWave;
+	int m_iWave;
+	Vec2 vResolution;
+
 public:
 	CScene_Start();
 	~CScene_Start();
@@ -16,7 +18,7 @@ public:
 
 public:
 	virtual void StageEvent();
-
+	virtual void render(HDC _dc);
 
 };
 

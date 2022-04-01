@@ -5,6 +5,7 @@
 #include "KeyMgr.h"
 #include "SceneMgr.h"
 #include "PathMgr.h"
+#include "CollisionMgr.h"
 
 #include "Object.h"
 
@@ -15,6 +16,8 @@ CCore::CCore()
 	, m_hDC(0)
 	, m_hBit(0)
 	, m_memDC(0)
+	, m_arrBrush{}
+	, m_arrPen{}
 {
 
 }
@@ -26,6 +29,9 @@ CCore::~CCore()
 	// compatible로 생성된 친구들은 delete로 삭제해야함
 	DeleteDC(m_memDC);
 	DeleteObject(m_hBit);
+
+	for (int i = 0; i < (UINT)PEN_TYPE::END; ++i)
+		DeleteObject(m_arrPen[i]);
 }
 
 // CObject g_obj;
@@ -56,12 +62,15 @@ int CCore::init(HWND _hWnd, Vec2 _vResolution)
 	DeleteObject(hOldBit);	// 어차피 기존 bitmap은 필요없음 새로운 비트맵으로 교체해버리면됨
 							// 쓸때없는 메모리인 기존 비트맵 삭제
 
+	// 브러시와 펜 생성
+	CreateBrushPen();
+
 	// 매니저 초기화
 	CTimeMgr::GetInst()->init();
 	CKeyMgr::GetInst()->init();
 	CPathMgr::GetInst()->init();
-
 	CSceneMgr::GetInst()->init();
+	CCollisionMgr::GetInst()->init();
 
 	return S_OK;
 }
@@ -73,8 +82,8 @@ void CCore::progress()
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
 	CPathMgr::GetInst()->update();
-
 	CSceneMgr::GetInst()->update();
+	CCollisionMgr::GetInst()->update();
 	
 	// =========
 	// Rendering
@@ -86,8 +95,22 @@ void CCore::progress()
 
 	CSceneMgr::GetInst()->render(m_memDC);
 
+	// 비트블릿이라고 불러요
 	BitBlt(m_hDC, 0, 0, (int)m_vResolution.x, (int)m_vResolution.y,
-		m_memDC, 0, 0, SRCCOPY); // hdc에서 지정한 크기만큼 복사할 dc의 지정한 위치에서 한픽셀씩 복사
+		m_memDC, 0, 0, SRCCOPY); // hdc에서 지정한 크기만큼 복사할 dc(memdc)의 지정한 위치에서 한픽셀씩 복사
 
 	
+}
+
+void CCore::CreateBrushPen()
+{
+	// GetStockObject에서 자주쑤는것들을 받아올수 있게 해줌
+	// Window소속이라 우리가 delete 해 줄 필요 없음
+	// hollow brush
+	m_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH); 
+
+	// red green blue pen
+	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+	m_arrPen[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
 }

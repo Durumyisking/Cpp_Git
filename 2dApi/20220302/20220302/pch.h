@@ -16,6 +16,9 @@
 #include <tchar.h>
 
 #include <Windows.h>
+// 라이브러리 참조
+#pragma comment(lib, "Msimg32.lib")
+
 #include <assert.h>
 
 #include <vector>

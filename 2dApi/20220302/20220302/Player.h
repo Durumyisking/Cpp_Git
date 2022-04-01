@@ -18,8 +18,12 @@ public:
 	virtual void update();
 	virtual void render(HDC _dc);
 
-private:
-	void CreateMissile(int _iType);
+public:
+	virtual void OnCollision(CCollider* _pOther);
+	virtual void OnCollisionEnter(CCollider* _pOther);
+	virtual void OnCollisionExit(CCollider* _pOther);
+
+
 
 };
 
