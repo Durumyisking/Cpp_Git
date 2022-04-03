@@ -6,6 +6,7 @@
 #include "SceneMgr.h"
 #include "PathMgr.h"
 #include "CollisionMgr.h"
+#include "EventMgr.h"
 
 #include "Object.h"
 
@@ -71,6 +72,8 @@ int CCore::init(HWND _hWnd, Vec2 _vResolution)
 	CPathMgr::GetInst()->init();
 	CSceneMgr::GetInst()->init();
 	CCollisionMgr::GetInst()->init();
+	CEventMgr::GetInst()->init();
+
 
 	return S_OK;
 }
@@ -78,11 +81,14 @@ int CCore::init(HWND _hWnd, Vec2 _vResolution)
 
 void CCore::progress()
 {
-	// Mgr update
+	// Mgr update (1 frame cycle)
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
-	CPathMgr::GetInst()->update();
+	
+	// Scene update
 	CSceneMgr::GetInst()->update();
+
+	// check collision
 	CCollisionMgr::GetInst()->update();
 	
 	// =========
@@ -96,9 +102,13 @@ void CCore::progress()
 	CSceneMgr::GetInst()->render(m_memDC);
 
 	// 비트블릿이라고 불러요
-	BitBlt(m_hDC, 0, 0, (int)m_vResolution.x, (int)m_vResolution.y,
+	BitBlt(m_hDC, 0, 0, m_vResolution.x, m_vResolution.y,
 		m_memDC, 0, 0, SRCCOPY); // hdc에서 지정한 크기만큼 복사할 dc(memdc)의 지정한 위치에서 한픽셀씩 복사
 
+	// 이벤트 지연 처리
+	CEventMgr::GetInst()->update();
+
+	
 	
 }
 

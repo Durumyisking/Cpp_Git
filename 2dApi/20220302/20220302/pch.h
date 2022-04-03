@@ -36,4 +36,5 @@ using std::wstring;
 // custom header
 #include "define.h"
 #include "struct.h"
+#include "func.h"
 

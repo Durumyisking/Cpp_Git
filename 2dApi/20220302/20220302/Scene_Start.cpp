@@ -11,19 +11,25 @@
 #include"PathMgr.h"
 #include"ResMgr.h"
 #include"CollisionMgr.h"
+#include"EventMgr.h"
+#include"SceneMgr.h"
+#include "KeyMgr.h"
 
 
 CScene_Start::CScene_Start()
 	:m_iWave(1)
 	, vResolution(CCore::GetInst()->GetResolution())
 {
-	m_pTex = CResMgr::GetInst()->LoadTexture(L"StartSceneTex", L"texture\\BackGround\\BG.bmp");
+	m_pTex = CResMgr::GetInst()->LoadTexture(L"StartSceneTex", L"texture\\BackGround\\BG_Start.bmp");
 	
 }
 
 
 CScene_Start::~CScene_Start()
 {
+	DeleteAll();
+
+	CCollisionMgr::GetInst()->Reset();
 }
 
 
@@ -33,8 +39,12 @@ void CScene_Start::Enter()
 	CObject* pPlayer = new CPlayer;
 	pPlayer->SetPos(Vec2(vResolution.x/2, vResolution.y/2 + 300.f));
 	pPlayer->SetScale(Vec2(100.f, 100.f));
-	AddObject(pPlayer, GROUP_TYPE::PLAYER);
+	pPlayer->SetName(L"Player");
+	CreateObject(pPlayer, GROUP_TYPE::PLAYER);
 
+	CObject* pPlayer2 = pPlayer->Clone();
+	pPlayer->SetPos(Vec2(vResolution.x / 2 + 100, vResolution.y / 2 + 300.f));
+	CreateObject(pPlayer2, GROUP_TYPE::PLAYER);
 
 
 
@@ -42,31 +52,39 @@ void CScene_Start::Enter()
 
 	// Player - Monster
 	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
-	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MISSILE);
-	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::MISSILE);
+	//CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::PROJ_MONSTER);
+	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PROJ_PLAYER);
 	
 }
 
 void CScene_Start::Exit()
 {
+	DeleteAll();
+
 	// 다른 씬에서는 다른 충돌 그룹을 쓸 수 있기 때문에 해제시켜주어야함
 	CCollisionMgr::GetInst()->Reset();
 
 }
 
-void CScene_Start::StageEvent()
+void CScene_Start::update()
 {
+	CScene::update();
 
+	if (KEY_TAP(KEY::ENTER))
+	{
+		ChangeScene(SCENE_TYPE::STAGE_01);
+	}
 
 	if (m_fTimeCount > 1.f && m_iWave < 4)
 	{
-		int iMonsterCount = 0;
-		float fMoveDist = 0.f;
-		float fSpeed = 0.f;
-		float fAcc = 0.f;
-		float fObjScale = 0.f;
+		int			iMonsterCount = 3;
+		Vec2		vObjPos = {};
+		Vec2		vObjScale = { 30.f, 30.f };
+		float		fSpeed = 500.f;
+		float		fAcc = -300.f;
+		float		fMoveDist = fSpeed - fAcc * fDT;
 
-		
+
 		float fTerm = 40.f;
 
 		CMonster* pMonster = nullptr;
@@ -74,24 +92,16 @@ void CScene_Start::StageEvent()
 		switch (m_iWave)
 		{
 		case 1:
-			iMonsterCount = 3;
-			fSpeed = 500.f;
-			fAcc = -300.f;
-			fMoveDist = fSpeed -fAcc * fDT;
-			fObjScale = 30.f;
-			
+
 
 			for (int i = 0; i < iMonsterCount; ++i)
 			{
 				pMonster = new CMonster;
+				pMonster->SetName(L"Monster");
 
-				pMonster->SetPos(Vec2(vResolution.x/2 + fTerm * (i-1), -(fObjScale / 2.f)));
-				pMonster->SetCenterPos(pMonster->GetPos());
-				pMonster->SetMoveDistance(fMoveDist);
-				pMonster->SetSpeed(fSpeed);
-				pMonster->SetAcc(fAcc);
-				pMonster->SetScale(Vec2(fObjScale, fObjScale));
-				AddObject(pMonster, GROUP_TYPE::MONSTER);
+				vObjPos = { vResolution.x / 2 + fTerm * (i - 1), -(vObjScale.x / 2.f) };
+
+				CreateMonster(pMonster, vObjPos, vObjScale, fMoveDist, fSpeed, fAcc);
 			}
 			break;
 		case 2:
@@ -99,20 +109,17 @@ void CScene_Start::StageEvent()
 			fSpeed = 500.f;
 			fAcc = -300.f;
 			fMoveDist = fSpeed - fAcc * fDT;
-			fObjScale = 30.f;
+			vObjScale = { 30.f, 30.f };
 
 
 			for (int i = 0; i < iMonsterCount; ++i)
 			{
 				pMonster = new CMonster;
+				pMonster->SetName(L"Monster");
+				vObjPos = { 100.f + fTerm * i, -(vObjScale.x / 2.f) };
 
-				pMonster->SetPos(Vec2(100.f + fTerm * i, -(fObjScale / 2.f)));
-				pMonster->SetCenterPos(pMonster->GetPos());
-				pMonster->SetMoveDistance(fMoveDist);
-				pMonster->SetSpeed(fSpeed);
-				pMonster->SetAcc(fAcc);
-				pMonster->SetScale(Vec2(fObjScale, fObjScale));
-				AddObject(pMonster, GROUP_TYPE::MONSTER);
+				CreateMonster(pMonster, vObjPos, vObjScale, fMoveDist, fSpeed, fAcc);
+
 			}
 			break;
 		case 3:
@@ -120,34 +127,35 @@ void CScene_Start::StageEvent()
 			fSpeed = 500.f;
 			fAcc = -300.f;
 			fMoveDist = fSpeed - fAcc * fDT;
-			fObjScale = 30.f;
+			vObjScale = { 30.f, 30.f };
 
 
 			for (int i = 0; i < iMonsterCount; ++i)
 			{
 				pMonster = new CMonster;
+				pMonster->SetName(L"Monster");
+				vObjPos = { vResolution.x - 100.f - fTerm * i, -(vObjScale.x / 2.f) };
 
-				pMonster->SetPos(Vec2(vResolution.x - 100.f - fTerm * i, -(fObjScale / 2.f)));
-				pMonster->SetCenterPos(pMonster->GetPos());
-				pMonster->SetMoveDistance(fMoveDist);
-				pMonster->SetSpeed(fSpeed);
-				pMonster->SetAcc(fAcc);
-				pMonster->SetScale(Vec2(fObjScale, fObjScale));
-				AddObject(pMonster, GROUP_TYPE::MONSTER);
+				CreateMonster(pMonster, vObjPos, vObjScale, fMoveDist, fSpeed, fAcc);
+
 			}
 			break;
 		}
-		
 
-		
+
+
 		++m_iWave;
 		m_fTimeCount = 0.f;
 	}
-	
+
 }
+
+
 
 void CScene_Start::render(HDC _dc)
 {
+	
+
 
 	int iWidth = (int)m_pTex->Width();
 	int iHeight = (int)m_pTex->Height();
@@ -161,11 +169,17 @@ void CScene_Start::render(HDC _dc)
 		, 0, 0, iWidth, iHeight
 		, RGB(255, 0, 255));
 
-	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)
-	{
-		for (size_t j = 0; j < m_arrObj[i].size(); ++j)
-		{
-			m_arrObj[i][j]->render(_dc);
-		}
-	}
+	CScene::render(_dc);
+	
+}
+
+void CScene_Start::CreateMonster(CMonster* _pMonster, Vec2 _vPos, Vec2 _vScale, float _fMoveDist, float _fSpeed, float _fAcc)
+{
+	_pMonster->SetPos(_vPos);
+	_pMonster->SetScale(_vScale);
+	_pMonster->SetCenterPos(_pMonster->GetPos());
+	_pMonster->SetMoveDistance(_fMoveDist);
+	_pMonster->SetSpeed(_fSpeed);
+	_pMonster->SetAcc(_fAcc);
+	CreateObject(_pMonster, GROUP_TYPE::MONSTER);
 }

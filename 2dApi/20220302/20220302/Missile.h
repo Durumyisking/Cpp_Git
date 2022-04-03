@@ -45,9 +45,10 @@ public:
 	virtual void update();
 	virtual void render(HDC _dc);
 
+
 public:
 	void CreateMissile(MISSILE_TYPE _eType, Vec2 _vStartPos, GROUP_TYPE _eShooter);
-	
+	CLONE(CMissile);
 public:
 	virtual void OnCollision(CCollider* _pOther);
 	virtual void OnCollisionEnter(CCollider* _pOther);

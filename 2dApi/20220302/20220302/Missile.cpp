@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Missile.h"
 
+#include "Core.h"
+
 #include "Player.h"
 #include "Monster.h"
 #include "Scene.h"
@@ -9,6 +11,7 @@
 #include "TimeMgr.h"
 #include "SceneMgr.h"
 #include "ResMgr.h"
+
 
 #include "Core.h"
 
@@ -43,6 +46,13 @@ void CMissile::update()
 
 		Vec2 vPos = GetPos();
 
+		/*
+		if (vPos.y < 0 || vPos.y > CCore::GetInst()->GetResolution().y)
+		{
+			DeleteObject(this);
+			return;
+		}
+		*/
 		switch (m_eType)
 		{
 
@@ -50,7 +60,7 @@ void CMissile::update()
 		{
 			
 			m_fSpeedx = 0.f;
-			m_fSpeedy = 800.f;
+			m_fSpeedy = 300.f;
 
 			vPos.x += m_fSpeedx * m_vDir.x * fDT;
 			vPos.y += m_fSpeedy * m_vDir.y * fDT;
@@ -132,26 +142,41 @@ void CMissile::CreateMissile(MISSILE_TYPE _eType, Vec2 _vStartPos, GROUP_TYPE _e
 	SetPos(vMissilePos);
 	SetStartVec(Vec2(vMissilePos));
 	SetScale(Vec2(10.f, 10.f));
+	
 
 	switch (_eType)
 	{
 	case MISSILE_TYPE::DEFAULT:
 		SetType(MISSILE_TYPE::DEFAULT);
 		m_pTex = CResMgr::GetInst()->LoadTexture(L"Missile_1Tex", L"texture\\Missile\\Missile_1.bmp");
-		if(GROUP_TYPE::PLAYER == _eShooter)
+		if(GROUP_TYPE::PROJ_PLAYER == _eShooter)
+		{
+			SetName(L"Missile_Player");
 			SetDir(Vec2(0.f, -1.f));
-		else if (GROUP_TYPE::MONSTER == _eShooter)
+		}
+			
+		else if (GROUP_TYPE::PROJ_MONSTER == _eShooter)
+		{
+			SetName(L"Missile_Monster");
 			SetDir(Vec2(0.f, 1.f));
+		}
 
 		break;
 
 	case MISSILE_TYPE::ZIGJAG:
 		m_pTex = CResMgr::GetInst()->LoadTexture(L"Missile_2Tex", L"texture\\Missile\\Missile_2.bmp");
 		SetType(MISSILE_TYPE::ZIGJAG);
-		if (GROUP_TYPE::PLAYER == _eShooter)
+
+		if (GROUP_TYPE::PROJ_PLAYER == _eShooter)
+		{
+			SetName(L"Missile_Player");
 			SetDir(Vec2(1.f, -1.f));
-		else if (GROUP_TYPE::MONSTER == _eShooter)
+		}
+		else if (GROUP_TYPE::PROJ_MONSTER == _eShooter)
+		{
+			SetName(L"Missile_Monster");
 			SetDir(Vec2(-1.f, 1.f));
+		}
 		break;
 
 
@@ -160,8 +185,9 @@ void CMissile::CreateMissile(MISSILE_TYPE _eType, Vec2 _vStartPos, GROUP_TYPE _e
 		break;
 	}
 
-	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
-	pCurScene->AddObject(this, GROUP_TYPE::MISSILE);
+
+	CreateObject(this, _eShooter);
+	
 }
 
 void CMissile::OnCollision(CCollider * _pOther)
@@ -170,6 +196,11 @@ void CMissile::OnCollision(CCollider * _pOther)
 
 void CMissile::OnCollisionEnter(CCollider * _pOther)
 {
+	CObject* potherObj = _pOther->GetObj();
+	if (L"Monster" == potherObj->GetName())
+	{
+		DeleteObject(this);
+	}
 }
 
 void CMissile::OnCollisionExit(CCollider * _pOther)

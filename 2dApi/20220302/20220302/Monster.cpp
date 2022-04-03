@@ -18,6 +18,7 @@ CMonster::CMonster()
 	, m_fAcc(0.f)
 	, m_dPrevTime(fDT)
 	, m_pTex(nullptr)
+	, m_iHP(5)
 
 
 {
@@ -36,7 +37,7 @@ CMonster::~CMonster()
 void CMonster::Attack(MISSILE_TYPE _eType)
 {
 	CMissile* pMissile = new CMissile;
-	pMissile->CreateMissile(_eType, GetPos(), GROUP_TYPE::MONSTER);
+	pMissile->CreateMissile(_eType, GetPos(), GROUP_TYPE::PROJ_MONSTER);
 }
 
 
@@ -112,9 +113,18 @@ void CMonster::OnCollision(CCollider * _pOther)
 
 void CMonster::OnCollisionEnter(CCollider * _pOther)
 {
-	_pOther->GetObj();
+	CObject* pOtherObj = _pOther->GetObj();
+
+	if (L"Missile_Player" == pOtherObj->GetName())
+	{
+		--m_iHP;
+
+		if(0 >= m_iHP)
+			DeleteObject(this);
+	}
 }
 
 void CMonster::OnCollisionExit(CCollider * _pOther)
 {
+
 }

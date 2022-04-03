@@ -157,6 +157,8 @@
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="EventMgr.h" />
+    <ClInclude Include="func.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Monster.h" />
@@ -169,7 +171,9 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
+    <ClInclude Include="Scene_1.h" />
     <ClInclude Include="Scene_Start.h" />
+    <ClInclude Include="Scene_Tool.h" />
     <ClInclude Include="SelectGDI.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="struct.h" />
@@ -182,12 +186,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="basic_math.cpp" />
+    <ClCompile Include="note.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Core.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="EventMgr.cpp" />
+    <ClCompile Include="func.cpp" />
     <ClCompile Include="KeyMgr.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -200,7 +206,9 @@
     <ClCompile Include="ResMgr.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
+    <ClCompile Include="Scene_1.cpp" />
     <ClCompile Include="Scene_Start.cpp" />
+    <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="SelectGDI.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Texture.cpp" />

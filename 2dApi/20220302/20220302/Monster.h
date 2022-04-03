@@ -13,6 +13,8 @@ private:
 	int			m_iDir;			// 이동 방향
 	float		m_fAcc;
 
+	int			m_iHP;
+
 	double		m_dPrevTime;
 
 	CTexture*	m_pTex;
@@ -38,6 +40,8 @@ public:
 	virtual void update();
 	virtual void render(HDC _dc);
 
+
+	CLONE(CMonster);
 public:
 	virtual void OnCollision(CCollider* _pOther);
 	virtual void OnCollisionEnter(CCollider* _pOther);

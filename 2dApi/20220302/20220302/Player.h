@@ -18,6 +18,9 @@ public:
 	virtual void update();
 	virtual void render(HDC _dc);
 
+
+
+	CLONE(CPlayer);
 public:
 	virtual void OnCollision(CCollider* _pOther);
 	virtual void OnCollisionEnter(CCollider* _pOther);

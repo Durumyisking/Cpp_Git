@@ -32,3 +32,24 @@
 
 */
 	
+
+
+/*
+	project 흐름
+
+	***obj delete***
+	1frame
+	update		: 
+	finalupdate	: 2. oncollision enter
+	collision	: 1. 콜리전 발생
+	render		: 4. obj set dead, 5. deadvec.pushback(obj)
+	event		: 3. Delete event
+
+	2frame
+	update		: 
+	finalupdate	: 
+	collision	: 
+	render		: 6. dead상태인 obj scene내에서 erase
+	event		: 7. 등록해놓은 deadvec 비우기
+
+*/

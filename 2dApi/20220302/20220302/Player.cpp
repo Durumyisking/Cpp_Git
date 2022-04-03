@@ -68,7 +68,7 @@ void CPlayer::update()
 //		if (0.f > 0.f - m_dPrevTime)
 //		{
 		CMissile* pMissile = new CMissile;
-		pMissile->CreateMissile(MISSILE_TYPE::DEFAULT , GetPos(), GROUP_TYPE::PLAYER);
+		pMissile->CreateMissile(MISSILE_TYPE::DEFAULT , GetPos(), GROUP_TYPE::PROJ_PLAYER);
 		//m_dPrevTime = 0.f;
 //		}
 	}
@@ -78,7 +78,7 @@ void CPlayer::update()
 	if (KEY_TAP(KEY::Z))
 	{
 		CMissile* pMissile = new CMissile;
-		pMissile->CreateMissile(MISSILE_TYPE::ZIGJAG, GetPos(), GROUP_TYPE::PLAYER);
+		pMissile->CreateMissile(MISSILE_TYPE::ZIGJAG, GetPos(), GROUP_TYPE::PROJ_PLAYER);
 	}
 
 	// 유도 미사일 (아직 미구현)
@@ -95,7 +95,7 @@ void CPlayer::update()
 void CPlayer::render(HDC _dc)
 {
 	int iWidth = (int)m_pTex->Width();
-	int iHeight = (int)m_pTex->Height(); //Tex.Wid/height는 unsignedint지만 우리 maindc에서는 이 텍스처가 화면을 넘어갈 수도 있기 때문에 넘어가면 비트값에 문제가 생겨 int로 캐스팅
+	int iHeight = (int)m_pTex->Height(); //Tex.Wid/height는 unsignedint지만 우리 main_dc에서는 이 텍스처가 화면을 넘어갈 수도 있기 때문에 넘어가면 비트값에 문제가 생겨 int로 캐스팅
 
 
 	Vec2 vPos = GetPos();

@@ -3,6 +3,10 @@
 
 
 #include "Scene_Start.h"
+#include "Scene_Tool.h"
+#include "Scene_1.h"
+
+#include"EventMgr.h"
 
 CSceneMgr::CSceneMgr()
 	: m_arrScene{}
@@ -21,12 +25,28 @@ CSceneMgr::~CSceneMgr()
 	}
 }
 
+void CSceneMgr::ChangeScene(SCENE_TYPE _eNext)
+{
+
+	// 여기서 Scene을 바로 바꾸면 문제가 이전 호출스택에서 가리키는scene이 달라 문제
+	// 그래서 이벤트 처리처럼 모아서 다음 프레임에 바꿔버림
+	
+	m_pCurScene->Exit();
+
+	m_pCurScene = m_arrScene[(UINT)_eNext];
+
+	m_pCurScene->Enter();
+}
+
 void CSceneMgr::init()
 {
 	// Scene 생성
 	m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Start;
 	m_arrScene[(UINT)SCENE_TYPE::START]->SetName(L"Start Scene");
-	//m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Tool;
+	m_arrScene[(UINT)SCENE_TYPE::TOOL] = new CScene_Tool;
+	m_arrScene[(UINT)SCENE_TYPE::TOOL]->SetName(L"Tool Scene");
+	m_arrScene[(UINT)SCENE_TYPE::STAGE_01] = new CScene_1;
+	m_arrScene[(UINT)SCENE_TYPE::STAGE_01]->SetName(L"Scene_1");
 	//m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Stage01;
 	//m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Stage02;
 
@@ -38,7 +58,6 @@ void CSceneMgr::init()
 
 void CSceneMgr::update()
 {
-	m_pCurScene->StageEvent();
 	m_pCurScene->update();
 
 	m_pCurScene->finalupdate();
@@ -47,4 +66,5 @@ void CSceneMgr::update()
 void CSceneMgr::render(HDC _dc)
 {
 	m_pCurScene->render(_dc);
+
 }

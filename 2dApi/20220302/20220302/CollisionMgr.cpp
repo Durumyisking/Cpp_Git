@@ -90,8 +90,8 @@ void CCollisionMgr::CollisionGroupupdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 			CCollider* pRightCol = vecRight[j]->GetCollider();
 
 			COLLIDER_ID ID;
-			ID.Left_id = pLeftCol->GetID();
-			ID.Left_id = pRightCol->GetID();
+ 			ID.Left_id = pLeftCol->GetID();
+			ID.Right_id = pRightCol->GetID();
 
 			iter = m_mapColInfo.find(ID.ID);
 
@@ -109,17 +109,32 @@ void CCollisionMgr::CollisionGroupupdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 				if (iter->second)
 				{
 					// 이전에도 충돌 하고 있었다.
-
-					// vecleft와 vecright가 충돌중이라는 정보 전달
-					vecLeft[i]->GetCollider()->OnCollision(pRightCol);
-					vecRight[j]->GetCollider()->OnCollision(pLeftCol);
+					
+					if (vecLeft[i]->IsDead() || vecRight[j]->IsDead())
+					{	
+						// 둘 중 하나가 삭제 예정이면 충돌 해제
+						vecLeft[i]->GetCollider()->OnCollisionExit(pRightCol);
+						vecRight[j]->GetCollider()->OnCollisionExit(pLeftCol);
+						iter->second = false;
+					}
+					else
+					{
+						// vecleft와 vecright가 충돌중이라는 정보 전달
+						vecLeft[i]->GetCollider()->OnCollision(pRightCol);
+						vecRight[j]->GetCollider()->OnCollision(pLeftCol);
+					}
 				}
 				else
 				{
 					// 이전에 충돌하지 않았다.
-					vecLeft[i]->GetCollider()->OnCollisionEnter(pRightCol);
-					vecRight[j]->GetCollider()->OnCollisionEnter(pLeftCol);
-					iter->second = true;
+					if (!vecLeft[i]->IsDead() && !vecRight[j]->IsDead())
+					{
+						// 둘 중 하나가 삭제 예정이면 충돌은 안한걸로 취급한다
+						vecLeft[i]->GetCollider()->OnCollisionEnter(pRightCol);
+						vecRight[j]->GetCollider()->OnCollisionEnter(pLeftCol);
+						iter->second = true;
+
+					}
 
 				}
 

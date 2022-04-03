@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object.h"
+
 #include "Texture.h"
 
 class CObject;	// 전방선언이라 아직 이게 우리의 CObject인지 모름
@@ -8,7 +9,7 @@ class CObject;	// 전방선언이라 아직 이게 우리의 CObject인지 모름
 				// 여기 클래스의 코드도 매번 확인해줘야해서 컴파일이 오래걸림
 				// 이 클래스에서는 Object가 있는걸 알기만 하면 괜찮아서
 				// 이 타입에 대한 정보를 받아오려면 포인터로만 가능
-
+class CMonster;
 
 			
 class CScene
@@ -34,11 +35,13 @@ public:
 
 	// 원본을 참조후 원본에 손상이 안가게 const 붙임
 	const vector <CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
+	void DeleteGroup(GROUP_TYPE _eTarget);
+	void DeleteAll();
 
 
 	// 모든 Scene이 같은 update와 render를 쓸꺼니까 굳이 virtual 안씀
-	void update();
-	void finalupdate(); // update된것을 마무리 후 확정시켜주는 함수
+	virtual void update();
+	virtual void finalupdate(); // update된것을 마무리 후 확정시켜주는 함수
 
 	virtual void render(HDC _dc);
 
@@ -56,7 +59,6 @@ public:
 	virtual void Exit() = 0;	// 해당 Scene을 탈출시 호출
 
 
-	virtual void StageEvent() = 0;
 
 
 
@@ -68,5 +70,9 @@ public:
 		// 특히 불필요한 함수를 사용중이니 inline함수로 만들어서 호출비용 없음
 		m_arrObj[(UINT)_eType].push_back(_Obj);
 	}
+
+protected:
+	virtual void CreateMonster(CMonster* _pMonster, Vec2 _vPos, Vec2 _vScale
+		, float _fMoveDist, float _fSpeed, float _fAcc);
 
 };

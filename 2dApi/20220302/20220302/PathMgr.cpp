@@ -40,14 +40,9 @@ void CPathMgr::init()
 		}
 	}
 
+
 	wcscat_s(m_szContentPath, 255, L"\\bin\\content\\");
 }
-
-void CPathMgr::update()
-{
-	
-}
-
 
 
 

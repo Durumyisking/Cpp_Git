@@ -74,6 +74,12 @@
     <Filter Include="Engine\03. Manager\CollisionMgr">
       <UniqueIdentifier>{6a4abd73-1e49-4a5b-ad56-1b647a3ba447}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\EventMgr">
+      <UniqueIdentifier>{d522c07d-22fe-40fb-9c1f-bd04a23cb7cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Scene\Scene_1">
+      <UniqueIdentifier>{ee8e01b6-5ba1-439e-8167-662eda4e8277}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -146,6 +152,18 @@
     <ClInclude Include="CollisionMgr.h">
       <Filter>Engine\03. Manager\CollisionMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EventMgr.h">
+      <Filter>Engine\03. Manager\EventMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>Engine\01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_1.h">
+      <Filter>Engine\05. Scene\Scene_1</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Tool.h">
+      <Filter>Engine\05. Scene\Scene_Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">
@@ -181,9 +199,6 @@
     <ClCompile Include="Missile.cpp">
       <Filter>Engine\04. Object\Missile</Filter>
     </ClCompile>
-    <ClCompile Include="basic_math.cpp">
-      <Filter>Default</Filter>
-    </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Engine\06. Resource\Sound</Filter>
     </ClCompile>
@@ -207,6 +222,21 @@
     </ClCompile>
     <ClCompile Include="CollisionMgr.cpp">
       <Filter>Engine\03. Manager\CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMgr.cpp">
+      <Filter>Engine\03. Manager\EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="note.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>Engine\01. Header</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_1.cpp">
+      <Filter>Engine\05. Scene\Scene_1</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Tool.cpp">
+      <Filter>Engine\05. Scene\Scene_Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
