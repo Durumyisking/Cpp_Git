@@ -80,6 +80,18 @@
     <Filter Include="Engine\05. Scene\Scene_1">
       <UniqueIdentifier>{ee8e01b6-5ba1-439e-8167-662eda4e8277}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\07. Component\Animator">
+      <UniqueIdentifier>{1caae1e4-0bd2-45d2-a76a-247adf55a1ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Component\Collider">
+      <UniqueIdentifier>{e71ed116-e6a6-41a0-8a3d-53731a51e99b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\Door">
+      <UniqueIdentifier>{d1f80a75-684f-4ce3-80cd-049f5d5c9fd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Component\Animator\Animation">
+      <UniqueIdentifier>{d2fe5e7e-2099-479c-86eb-cfe6750d91f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -143,9 +155,6 @@
     <ClInclude Include="ResMgr.h">
       <Filter>Engine\03. Manager\ResMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Engine\07. Component</Filter>
-    </ClInclude>
     <ClInclude Include="SelectGDI.h">
       <Filter>Engine\08. Module</Filter>
     </ClInclude>
@@ -163,6 +172,18 @@
     </ClInclude>
     <ClInclude Include="Scene_Tool.h">
       <Filter>Engine\05. Scene\Scene_Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Engine\07. Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Engine\07. Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Engine\04. Object\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Engine\07. Component\Animator\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -214,9 +235,6 @@
     <ClCompile Include="ResMgr.cpp">
       <Filter>Engine\03. Manager\ResMgr</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Engine\07. Component</Filter>
-    </ClCompile>
     <ClCompile Include="SelectGDI.cpp">
       <Filter>Engine\08. Module</Filter>
     </ClCompile>
@@ -237,6 +255,18 @@
     </ClCompile>
     <ClCompile Include="Scene_Tool.cpp">
       <Filter>Engine\05. Scene\Scene_Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Engine\07. Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Engine\07. Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Engine\04. Object\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Engine\07. Component\Animator\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,6 @@
 CScene_1::CScene_1()
 {
 	m_pTex = CResMgr::GetInst()->LoadTexture(L"Scene1", L"texture\\BackGround\\BG_Tool.bmp");
-
 }
 
 
@@ -22,7 +21,7 @@ void CScene_1::update()
 
 	if (KEY_TAP(KEY::ENTER))
 	{
-		ChangeScene(SCENE_TYPE::TOOL		);
+		ChangeScene(SCENE_TYPE::TOOL);
 	}
 }
 

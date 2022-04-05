@@ -27,9 +27,7 @@ CScene_Start::CScene_Start()
 
 CScene_Start::~CScene_Start()
 {
-	DeleteAll();
 
-	CCollisionMgr::GetInst()->Reset();
 }
 
 
@@ -42,9 +40,9 @@ void CScene_Start::Enter()
 	pPlayer->SetName(L"Player");
 	CreateObject(pPlayer, GROUP_TYPE::PLAYER);
 
-	CObject* pPlayer2 = pPlayer->Clone();
-	pPlayer->SetPos(Vec2(vResolution.x / 2 + 100, vResolution.y / 2 + 300.f));
-	CreateObject(pPlayer2, GROUP_TYPE::PLAYER);
+	//CObject* pPlayer2 = pPlayer->Clone();
+	//pPlayer->SetPos(Vec2(vResolution.x / 2 + 100, vResolution.y / 2 + 300.f));
+	//CreateObject(pPlayer2, GROUP_TYPE::PLAYER);
 
 
 
@@ -59,7 +57,7 @@ void CScene_Start::Enter()
 
 void CScene_Start::Exit()
 {
-	DeleteAll();
+	//DeleteAll();
 
 	// 다른 씬에서는 다른 충돌 그룹을 쓸 수 있기 때문에 해제시켜주어야함
 	CCollisionMgr::GetInst()->Reset();
@@ -77,12 +75,13 @@ void CScene_Start::update()
 
 	if (m_fTimeCount > 1.f && m_iWave < 4)
 	{
-		int			iMonsterCount = 3;
-		Vec2		vObjPos = {};
-		Vec2		vObjScale = { 30.f, 30.f };
-		float		fSpeed = 500.f;
-		float		fAcc = -300.f;
-		float		fMoveDist = fSpeed - fAcc * fDT;
+		int iMonsterCount = 0;
+		Vec2 vObjPos = {};
+		Vec2 vObjScale = {};
+		float fMoveDist = 0.f;
+		float fSpeed = 0.f;
+		float fAcc = 0.f;
+
 
 
 		float fTerm = 40.f;
@@ -92,6 +91,11 @@ void CScene_Start::update()
 		switch (m_iWave)
 		{
 		case 1:
+			iMonsterCount = 3;
+			fSpeed = 500.f;
+			fAcc = -300.f;
+			fMoveDist = fSpeed - fAcc * fDT;
+			vObjScale = { 30.f, 30.f };
 
 
 			for (int i = 0; i < iMonsterCount; ++i)
@@ -155,7 +159,6 @@ void CScene_Start::update()
 void CScene_Start::render(HDC _dc)
 {
 	
-
 
 	int iWidth = (int)m_pTex->Width();
 	int iHeight = (int)m_pTex->Height();

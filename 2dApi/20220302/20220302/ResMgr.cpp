@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "ResMgr.h"
+#include "Res.h"
 
 #include"PathMgr.h"
 #include"Texture.h"
@@ -11,10 +12,7 @@ CResMgr::CResMgr()
 
 CResMgr::~CResMgr()
 {
-	map <wstring, CTexture*>::iterator iter = m_mapTex.begin();
-
-	for (; iter != m_mapTex.end(); ++iter)
-		delete iter->second;
+	Safe_Delete_Map(m_mapTex);
 }
 
 // _strkey : 텍스처를 ResMgr에서 찾아오기 위한 key값, _strRelativePath : 상대적 경로 (절대 경로를 pathmgr에서 해결)
@@ -40,12 +38,13 @@ CTexture * CResMgr::LoadTexture(const wstring & _strKey, const wstring & _strRel
 
 CTexture * CResMgr::FindTexture(const wstring & _strKey)
 {
-	map<wstring, CTexture*>::iterator iter = m_mapTex.find(_strKey);
+	map<wstring, CRes*>::iterator iter = m_mapTex.find(_strKey);
 
-	if (m_mapTex.end() == iter)
+	if (iter == m_mapTex.end())
 	{
 		return nullptr;
 	}
 
-	return iter->second;
+	// 포인터는 res지만 우린 텍스쳐 줄꺼기 때문에 다운캐스팅
+	return (CTexture*)iter->second;
 }

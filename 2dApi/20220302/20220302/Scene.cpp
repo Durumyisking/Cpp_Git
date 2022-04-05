@@ -94,8 +94,5 @@ void CScene::render(HDC _dc)
 }
 
 
-void CScene::CreateMonster(CMonster * _pMonster, Vec2 _vPos, Vec2 _vScale, float _fMoveDist, float _fSpeed, float _fAcc)
-{
-	// 개별 씬마다 구현한다.
-}
+
 

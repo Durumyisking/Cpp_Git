@@ -11,10 +11,11 @@ private:
 	BITMAP		m_bitInfo;
 
 private: // 우리가 자체적으로 동적할당 불가능하게 private으로 함
+		// 일단 safe delete에서 사용 가능하게 public 해둠
 	CTexture();
-	~CTexture();
+	virtual ~CTexture();
 
-	friend class CResMgr;
+	
 
 public:
 	void Load(const wstring& _strFilePath);
@@ -24,5 +25,6 @@ public:
 
 	HDC GetDC() { return m_dc; }
 
+	friend class CResMgr;
 };
 

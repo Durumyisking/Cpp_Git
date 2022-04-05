@@ -7,7 +7,6 @@ class CPlayer :
 {
 private:
 	double		m_dPrevTime; // 평타 쿨타임
-	CTexture*	m_pTex;
 
 
 public:

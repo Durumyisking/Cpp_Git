@@ -24,6 +24,9 @@ protected:
 	float				m_fTimeCount;
 	CTexture*			m_pTex;
 
+	// 이전 방 기준 방의 위치
+	ROOM_TYPE			m_eRoomType;
+
 public:
 	CScene();
 	virtual ~CScene();
@@ -32,6 +35,10 @@ public:
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
+
+	// 
+	void SetRoomType(ROOM_TYPE _eRoomType) { m_eRoomType = _eRoomType; }
+	ROOM_TYPE& GetRoomType() { return m_eRoomType; }
 
 	// 원본을 참조후 원본에 손상이 안가게 const 붙임
 	const vector <CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
@@ -71,8 +78,6 @@ public:
 		m_arrObj[(UINT)_eType].push_back(_Obj);
 	}
 
-protected:
-	virtual void CreateMonster(CMonster* _pMonster, Vec2 _vPos, Vec2 _vScale
-		, float _fMoveDist, float _fSpeed, float _fAcc);
+
 
 };

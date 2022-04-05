@@ -117,3 +117,13 @@ enum class EVENT_TYPE
 
 	END,
 };
+
+enum class ROOM_TYPE
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+
+	END,
+};

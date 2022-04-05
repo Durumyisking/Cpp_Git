@@ -53,3 +53,16 @@
 	event		: 7. 등록해놓은 deadvec 비우기
 
 */
+
+
+/*
+
+	Scene 이 바뀔때
+	A scene에 있
+	change scene 과정에서 다음 scene에 넘기겠다고 마킹해둔것들만 따로 모아서 
+	다음 scene의 enter에 넣어주면 유지된체로 넘겨줄 수 있음
+
+
+
+
+*/

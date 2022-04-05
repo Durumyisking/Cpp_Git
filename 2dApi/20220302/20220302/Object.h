@@ -1,6 +1,7 @@
 #pragma once
 
 class CCollider;
+class CAnimator;
 
 class CObject
 {
@@ -12,6 +13,7 @@ private:
 	Vec2		m_vScale;
 
 	CCollider*	m_pCollider; // 충돌체 필요하면 얘 가지고 없으면 안가지면 되는 것
+	CAnimator*	m_pAnimator;
 
 	bool		m_bAlive;	// 살았니 죽었니
 
@@ -25,6 +27,8 @@ public:
 	void SetScale(Vec2 _vScale) { m_vScale = _vScale; }
 
 	CCollider* GetCollider() { return m_pCollider; }
+	CAnimator* GetAnimator() { return m_pAnimator; }
+
 	Vec2 GetPos() { return m_vPos; }
 	Vec2 GetScale() { return m_vScale; }
 
@@ -46,6 +50,7 @@ public:
 	virtual void render(HDC _dc);
 
 	void CreateCollider();
+	void CreateAnimator();
 
 	virtual void OnCollision(CCollider* _pOther) {};
 	virtual void OnCollisionEnter(CCollider* _pOther) {};

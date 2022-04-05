@@ -1,6 +1,7 @@
 #pragma once
 
 
+class CRes;
 class CTexture;
 
 class CResMgr
@@ -8,7 +9,7 @@ class CResMgr
 	SINGLE(CResMgr);
 
 private:
-	map<wstring, CTexture*> m_mapTex;	// 찾아올때 문자열로 찾아 올 수 있게 key값을 string으로
+	map<wstring, CRes*> m_mapTex;	// 찾아올때 문자열로 찾아 올 수 있게 key값을 string으로
 
 
 public:
