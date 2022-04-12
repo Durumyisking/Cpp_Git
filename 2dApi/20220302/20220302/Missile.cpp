@@ -11,6 +11,7 @@
 #include "TimeMgr.h"
 #include "SceneMgr.h"
 #include "ResMgr.h"
+#include "Camera.h"
 
 
 #include "Core.h"
@@ -59,7 +60,7 @@ void CMissile::update()
 		case MISSILE_TYPE::DEFAULT:
 		{
 			
-			m_fSpeedx = 0.f;
+			m_fSpeedx = 300.f;
 			m_fSpeedy = 300.f;
 
 			vPos.x += m_fSpeedx * m_vDir.x * fDT;
@@ -122,10 +123,12 @@ void CMissile::render(HDC _dc)
 
 
 	Vec2 vPos = GetPos();
+	
+	Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(vPos);
 
 	TransparentBlt(_dc
-		, (int)(vPos.x - (float)(iWidth / 2))
-		, (int)(vPos.y - (float)(iHeight / 2))
+		, (int)(vRenderPos.x - (float)(iWidth / 2))
+		, (int)(vRenderPos.y - (float)(iHeight / 2))
 		, iWidth, iHeight
 		, m_pTex->GetDC()
 		, 0, 0, iWidth, iHeight
@@ -138,7 +141,7 @@ void CMissile::CreateMissile(MISSILE_TYPE _eType, Vec2 _vStartPos, GROUP_TYPE _e
 {
 	Vec2 vMissilePos = _vStartPos; // 현재 플레이어의 위치 가져옴
 	vMissilePos.y -= GetScale().y / 2.f;
-
+		
 	SetPos(vMissilePos);
 	SetStartVec(Vec2(vMissilePos));
 	SetScale(Vec2(10.f, 10.f));
@@ -152,13 +155,11 @@ void CMissile::CreateMissile(MISSILE_TYPE _eType, Vec2 _vStartPos, GROUP_TYPE _e
 		if(GROUP_TYPE::PROJ_PLAYER == _eShooter)
 		{
 			SetName(L"Missile_Player");
-			SetDir(Vec2(0.f, -1.f));
 		}
 			
 		else if (GROUP_TYPE::PROJ_MONSTER == _eShooter)
 		{
 			SetName(L"Missile_Monster");
-			SetDir(Vec2(0.f, 1.f));
 		}
 
 		break;

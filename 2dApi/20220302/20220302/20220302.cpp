@@ -45,7 +45,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	
-	if (FAILED(CCore::GetInst()->init(g_hWnd, Vec2{ 1000, 768 })))
+	if (FAILED(CCore::GetInst()->init(g_hWnd, Vec2{ 1280, 768 })))
 	{
 		MessageBox(nullptr, L"Core 객체 초기화 실패", L"ERROR!!", MB_OK);
 
@@ -158,6 +158,10 @@ POINT g_ptRB;
 
 bool bLbtnDown = false;
 
+
+INT_PTR CALLBACK TileCountProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -174,6 +178,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
 			break;
+		case ID_MENU_TILE:
+			DialogBox(hInst, MAKEINTRESOURCE(IDD_TILE_COUNT), hWnd, TileCountProc);
+			break;
+
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
@@ -202,6 +210,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 
+// 다이얼로그 box 메시지 처리기
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);

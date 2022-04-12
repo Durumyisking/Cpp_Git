@@ -3,9 +3,12 @@
 
 #include "TimeMgr.h"
 #include "KeyMgr.h"
+#include "Camera.h"
 
 #include "Collider.h"
 #include "Animator.h"
+
+#include "Core.h"
 
 CObject::CObject()
 	: m_vPos{}
@@ -13,6 +16,7 @@ CObject::CObject()
 	, m_pCollider(nullptr)
 	, m_pAnimator(nullptr)
 	, m_bAlive(true)
+	, m_vResolution(CCore::GetInst()->GetResolution())
 
 {
 }
@@ -67,11 +71,16 @@ void CObject::finalupdate()
 
 void CObject::render(HDC _dc)
 {
+	// ÁøÂ¥ ÁÂÇ¥°¡ ¾Æ´Ñ ·»´õ¸µ µÇ´Â ÁÂÇ¥ (ÁøÂ¥ ÁÂÇ¥´Â m_vPos)
+	Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(m_vPos);
+
 	Rectangle(_dc,
-		(int)m_vPos.x - m_vScale.x / 2.f,
-		(int)m_vPos.y - m_vScale.y / 2.f,
-		(int)m_vPos.x + m_vScale.x / 2.f,
-		(int)m_vPos.y + m_vScale.y / 2.f);
+		(int)vRenderPos.x - m_vScale.x / 2.f,
+		(int)vRenderPos.y - m_vScale.y / 2.f,
+		(int)vRenderPos.x + m_vScale.x / 2.f,
+		(int)vRenderPos.y + m_vScale.y / 2.f);
+
+	component_render(_dc);
 }
 
 void CObject::component_render(HDC _dc)

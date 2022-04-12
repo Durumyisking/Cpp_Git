@@ -6,7 +6,7 @@ class CScene_Start :
 
 private:
 	int m_iWave;
-	Vec2 vResolution;
+	
 
 public:
 	CScene_Start();

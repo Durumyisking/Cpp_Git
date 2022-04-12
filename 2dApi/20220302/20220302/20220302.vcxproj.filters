@@ -77,9 +77,6 @@
     <Filter Include="Engine\03. Manager\EventMgr">
       <UniqueIdentifier>{d522c07d-22fe-40fb-9c1f-bd04a23cb7cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\05. Scene\Scene_1">
-      <UniqueIdentifier>{ee8e01b6-5ba1-439e-8167-662eda4e8277}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\07. Component\Animator">
       <UniqueIdentifier>{1caae1e4-0bd2-45d2-a76a-247adf55a1ea}</UniqueIdentifier>
     </Filter>
@@ -91,6 +88,15 @@
     </Filter>
     <Filter Include="Engine\07. Component\Animator\Animation">
       <UniqueIdentifier>{d2fe5e7e-2099-479c-86eb-cfe6750d91f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\Camera">
+      <UniqueIdentifier>{84afa0e7-314a-42c2-80c5-344407de2dba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\Player\Isaac">
+      <UniqueIdentifier>{17975f9d-70a5-40eb-9c34-31b5d60d3e52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\Tile">
+      <UniqueIdentifier>{ee077a37-b10d-4fe7-9f0f-7df13cda7ed5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -167,9 +173,6 @@
     <ClInclude Include="func.h">
       <Filter>Engine\01. Header</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_1.h">
-      <Filter>Engine\05. Scene\Scene_1</Filter>
-    </ClInclude>
     <ClInclude Include="Scene_Tool.h">
       <Filter>Engine\05. Scene\Scene_Tool</Filter>
     </ClInclude>
@@ -184,6 +187,16 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Engine\07. Component\Animator\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Head.h">
+      <Filter>Engine\04. Object\Player\Isaac</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.h">
+      <Filter>Engine\04. Object\Player\Isaac</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Engine\04. Object\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -250,9 +263,6 @@
     <ClCompile Include="func.cpp">
       <Filter>Engine\01. Header</Filter>
     </ClCompile>
-    <ClCompile Include="Scene_1.cpp">
-      <Filter>Engine\05. Scene\Scene_1</Filter>
-    </ClCompile>
     <ClCompile Include="Scene_Tool.cpp">
       <Filter>Engine\05. Scene\Scene_Tool</Filter>
     </ClCompile>
@@ -267,6 +277,16 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Engine\07. Component\Animator\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Body.cpp">
+      <Filter>Engine\04. Object\Player\Isaac</Filter>
+    </ClCompile>
+    <ClCompile Include="Head.cpp">
+      <Filter>Engine\04. Object\Player\Isaac</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Engine\04. Object\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

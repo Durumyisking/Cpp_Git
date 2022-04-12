@@ -1,4 +1,5 @@
 #pragma once
+#include "Camera.h"
 
 class CCollider;
 class CAnimator;
@@ -9,13 +10,16 @@ class CObject
 private:
 	wstring		m_strName;
 
-	Vec2		m_vPos;
+	Vec2		m_vPos;		// 물제의 실제 위치
 	Vec2		m_vScale;
 
 	CCollider*	m_pCollider; // 충돌체 필요하면 얘 가지고 없으면 안가지면 되는 것
 	CAnimator*	m_pAnimator;
 
 	bool		m_bAlive;	// 살았니 죽었니
+
+protected:
+	Vec2		m_vResolution;
 
 public:
 	CObject();

@@ -7,6 +7,7 @@
 #include "PathMgr.h"
 #include "CollisionMgr.h"
 #include "EventMgr.h"
+#include "Camera.h"
 
 #include "Object.h"
 
@@ -54,7 +55,7 @@ int CCore::init(HWND _hWnd, Vec2 _vResolution)
 	m_hDC = GetDC(m_hWnd); 
 
 	// 이중 버퍼링 용도의 비트맵과 DC를 생성
-	m_hBit = CreateCompatibleBitmap(m_hDC, m_vResolution.x, m_vResolution.y);
+	m_hBit = CreateCompatibleBitmap(m_hDC, (int)m_vResolution.x, (int)m_vResolution.y);
 	// 이 가짜 비트맵에 완전 렌더링 한 후 그 결과를 진짜 비트맵에 올릴거임
 	// 그래야 서로 다른 오브젝트들이 따로 렌더링되지 않음
 	m_memDC = CreateCompatibleDC(m_hDC); // 화면에 직접 출력되지않는 memory dc 생성
@@ -84,7 +85,8 @@ void CCore::progress()
 	// Mgr update (1 frame cycle)
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
-	
+	// CCamera::GetInst()->update();
+
 	// Scene update
 	CSceneMgr::GetInst()->update();
 
@@ -102,7 +104,7 @@ void CCore::progress()
 	CSceneMgr::GetInst()->render(m_memDC);
 
 	// 비트블릿이라고 불러요
-	BitBlt(m_hDC, 0, 0, m_vResolution.x, m_vResolution.y,
+	BitBlt(m_hDC, 0, 0, (int)m_vResolution.x, (int)m_vResolution.y,
 		m_memDC, 0, 0, SRCCOPY); // hdc에서 지정한 크기만큼 복사할 dc(memdc)의 지정한 위치에서 한픽셀씩 복사
 
 	// 이벤트 지연 처리

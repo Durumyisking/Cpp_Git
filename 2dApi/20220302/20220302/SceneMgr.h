@@ -23,6 +23,7 @@ public:
 	void update();
 	void render(HDC _dc);
 
-
+public:
+	void SetTileIdx();
 };
 

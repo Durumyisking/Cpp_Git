@@ -33,11 +33,20 @@
 #define KEY_TAP(key) KEY_CHECK(key, KEY_STATE::TAP)
 #define KEY_AWAY(key) KEY_CHECK(key, KEY_STATE::AWAY)
 #define KEY_NONE(key) KEY_CHECK(key, KEY_STATE::NONE)
+#define MOUSE_POS CKeyMgr::GetInst()->GetMousePos()
 
 #define CLONE(type) type* Clone() { return new type(*this); }
 
 
+
 #define PI 3.14159265385
+
+#define TILE_SIZE 64
+#define ROCK_SIZE 32
+
+
+
+
 
 //#define OBJUPDATE() for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i)\
 //					{\
@@ -53,6 +62,8 @@ enum class GROUP_TYPE
 {
 	DEFAULT,
 
+	TILE, 
+
 	PLAYER,
 
 	MISSILE,
@@ -63,7 +74,7 @@ enum class GROUP_TYPE
 
 	PROJ_MONSTER,
 
-
+	DOOR,
 
 	END = 32,
 };

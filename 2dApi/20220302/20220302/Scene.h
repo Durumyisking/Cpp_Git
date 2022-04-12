@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Object.h"
-
-#include "Texture.h"
 
 class CObject;	// 전방선언이라 아직 이게 우리의 CObject인지 모름
 				// 직접 헤더를 참조하면 CObject쪽의 코드가 변경되면
@@ -10,22 +7,29 @@ class CObject;	// 전방선언이라 아직 이게 우리의 CObject인지 모름
 				// 이 클래스에서는 Object가 있는걸 알기만 하면 괜찮아서
 				// 이 타입에 대한 정보를 받아오려면 포인터로만 가능
 class CMonster;
+class CTexture;
 
 			
 class CScene
 {
 
 
-protected:
+private:
 	// 모든 OBject 클래스의 부모 클래스로써 모든 자식 클래스의 포인터를 받을 수 있음
 	vector<CObject*>	m_arrObj[(UINT)GROUP_TYPE::END]; // Obj 그룹을 담은 벡터를 배열로 선언
 	wstring				m_strName; // Scene이름
 
+	UINT				m_iTileX;
+	UINT				m_iTileY;
+
+protected:
 	float				m_fTimeCount;
 	CTexture*			m_pTex;
 
 	// 이전 방 기준 방의 위치
 	ROOM_TYPE			m_eRoomType;
+	Vec2				m_vResolution;
+
 
 public:
 	CScene();
@@ -36,9 +40,12 @@ public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
 
-	// 
+	 
 	void SetRoomType(ROOM_TYPE _eRoomType) { m_eRoomType = _eRoomType; }
 	ROOM_TYPE& GetRoomType() { return m_eRoomType; }
+
+	UINT GetTileX() { return m_iTileX; }
+	UINT GetTileY() { return m_iTileY; }
 
 	// 원본을 참조후 원본에 손상이 안가게 const 붙임
 	const vector <CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
@@ -77,6 +84,7 @@ public:
 		// 특히 불필요한 함수를 사용중이니 inline함수로 만들어서 호출비용 없음
 		m_arrObj[(UINT)_eType].push_back(_Obj);
 	}
+	void CreateTile(UINT _iXCount, UINT _iYCount);
 
 
 

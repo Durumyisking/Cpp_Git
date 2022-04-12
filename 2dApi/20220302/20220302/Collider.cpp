@@ -6,6 +6,8 @@
 
 #include "SelectGDI.h"
 
+#include "Camera.h"
+
 UINT CCollider::g_iNextID = 0;
 
 CCollider::CCollider()
@@ -53,11 +55,13 @@ void CCollider::render(HDC _dc)
 
 	CSelectGDI brush (_dc, BRUSH_TYPE::HOLLOW);
 
+	Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(m_vFinalPos);
+
 	Rectangle(_dc,
-		m_vFinalPos.x - m_vScale.x / 2.f,
-		m_vFinalPos.y - m_vScale.y / 2.f,
-		m_vFinalPos.x + m_vScale.x / 2.f,
-		m_vFinalPos.y + m_vScale.y / 2.f);
+		vRenderPos.x - m_vScale.x / 2.f,
+		vRenderPos.y - m_vScale.y / 2.f,
+		vRenderPos.x + m_vScale.x / 2.f,
+		vRenderPos.y + m_vScale.y / 2.f);
 
 
 	// 함수 종료시 CSelectGDI의 소멸자 호출

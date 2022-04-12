@@ -5,7 +5,7 @@
 
 #include "TimeMgr.h"
 #include "ResMgr.h"
-
+#include "Camera.h"
 
 
 
@@ -94,10 +94,11 @@ void CMonster::render(HDC _dc)
 
 	Vec2 vPos = GetPos();
 
+	Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(vPos);
 	
 	TransparentBlt(_dc
-		, (int)(vPos.x - (float)(iWidth / 2))
-		, (int)(vPos.y - (float)(iHeight / 2))
+		, (int)(vRenderPos.x - (float)(iWidth / 2))
+		, (int)(vRenderPos.y - (float)(iHeight / 2))
 		, iWidth, iHeight
 		, m_pTex->GetDC()
 		, 0, 0, iWidth, iHeight

@@ -4,7 +4,6 @@
 
 #include "Scene_Start.h"
 #include "Scene_Tool.h"
-#include "Scene_1.h"
 
 #include"EventMgr.h"
 
@@ -45,13 +44,11 @@ void CSceneMgr::init()
 	m_arrScene[(UINT)SCENE_TYPE::START]->SetName(L"Start Scene");
 	m_arrScene[(UINT)SCENE_TYPE::TOOL] = new CScene_Tool;
 	m_arrScene[(UINT)SCENE_TYPE::TOOL]->SetName(L"Tool Scene");
-	m_arrScene[(UINT)SCENE_TYPE::STAGE_01] = new CScene_1;
-	m_arrScene[(UINT)SCENE_TYPE::STAGE_01]->SetName(L"Scene_1");
 	//m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Stage01;
 	//m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Stage02;
 
 	// ÇöÀç ¾À ¼³Á¤
-	m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::START];
+	m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::TOOL];
 	m_pCurScene->Enter();
 
 }

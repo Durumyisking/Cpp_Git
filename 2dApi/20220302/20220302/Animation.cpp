@@ -6,6 +6,8 @@
 #include "Object.h"
 
 #include "TimeMgr.h"
+#include "Camera.h"
+
 
 CAnimation::CAnimation()
 	: m_pAnimator(nullptr)
@@ -35,9 +37,14 @@ void CAnimation::update()
 		{
 			m_iCurFrm = -1;
 			m_bFinish = true;
+			return;
 		}
 
-		m_fAccTime = 0;
+		// ex ) 프레임 ABCDE에서
+		// A서 렉 걸렸다고 생각했을때 원래 3초동안 랙걸리면 C로 가있어야 하는데
+		// 다른곳에 가 있을수도 있음
+		m_fAccTime = m_fAccTime - m_vecFrm[m_iCurFrm].fDuration;
+
 	}
 }
 
@@ -48,6 +55,13 @@ void CAnimation::render(HDC _dc)
 
 	CObject* pObj = m_pAnimator->GetObj();
 	Vec2 vPos = pObj->GetPos();
+
+	// 우리는 애니메이션의 발쪽에 콜라이더를 둘거기 때문에 offset으로 애니메이션 위로 올릴거
+	// 진짜위치
+	vPos = vPos + m_vecFrm[m_iCurFrm].vOffset;
+
+	// 렌더링 위치
+	vPos = CCamera::GetInst()->GetRenderPos(vPos);
 
 	TransparentBlt(_dc
 		, (int)(vPos.x - m_vecFrm[m_iCurFrm].vSlice.x / 2.f)
@@ -73,7 +87,7 @@ void CAnimation::Create(CTexture * _pTex, Vec2 _vLT, Vec2 _vSliceSize, Vec2 _vSt
 	{
 		frm.fDuration = _fDuration;
 		frm.vSlice = _vSliceSize;
-		frm.vLT = _vLT + _vStep * i;
+		frm.vLT = _vLT + _vStep * (float)i;
 
 		m_vecFrm.push_back(frm);
 

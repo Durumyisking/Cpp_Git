@@ -27,6 +27,8 @@ enum class KEY
 	ENTER,
 	ESC,
 
+	LBTN, RBTN,
+
 	LAST
 };
 
@@ -53,6 +55,9 @@ private:
 	vector<tKeyInfo> m_vecKey;	// 벡터의 idx가 KEY 값
 								// idx 0이 left
 
+	// 현재 마우스 위치
+	Vec2			m_vCurMousePos;
+
 
 
 
@@ -63,6 +68,7 @@ public:
 
 public:
 	KEY_STATE GetKeyState(KEY _eKey) { return m_vecKey[(int)_eKey].eState; }
+	Vec2 GetMousePos() { return m_vCurMousePos; }
 	
 };
 

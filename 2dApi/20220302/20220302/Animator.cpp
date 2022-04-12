@@ -45,11 +45,11 @@ CAnimation* CAnimator::FindAnimation(const wstring & _strName)
 }
 
 void CAnimator::Play(const wstring & _strName, bool _bRepeat)
-{
-	
+{	
 	m_pCurAnim = FindAnimation(_strName);
 	m_bRepeat = _bRepeat;
 }
+
 
 void CAnimator::update()
 {

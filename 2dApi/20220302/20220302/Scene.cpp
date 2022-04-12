@@ -1,12 +1,22 @@
 #include "pch.h"
 #include "Scene.h"
 
+#include "Core.h"
+#include "Object.h"
+#include "Texture.h"
+#include "Tile.h"
+
+#include "ResMgr.h"
 #include "TimeMgr.h"
 
 
 CScene::CScene()
 	:m_fTimeCount(0)
 	,m_pTex(nullptr)
+	,m_vResolution (CCore::GetInst()->GetResolution())
+
+	, m_iTileX(0)
+	, m_iTileY(0)
 {
 }
 
@@ -89,6 +99,27 @@ void CScene::render(HDC _dc)
 			{
 				iter = m_arrObj[i].erase(iter);
 			}
+		}
+	}
+}
+
+void CScene::CreateTile(UINT _iXCount, UINT _iYCount)
+{
+
+	m_iTileX = _iXCount;
+	m_iTileY = _iYCount;
+
+	CTexture* pTileTex = CResMgr::GetInst()->LoadTexture(L"Tile", L"texture\\BackGround\\rocks_basement.bmp");
+
+	for (UINT i = 0; i < _iYCount; ++i)
+	{
+		for (UINT j = 0; j < _iXCount; ++j)
+		{
+			CTile* pTile = new CTile();
+			pTile->SetPos(Vec2((float)(j* ROCK_SIZE), (float)(i * ROCK_SIZE)));
+			pTile->SetTexture(pTileTex);
+
+			AddObject(pTile, GROUP_TYPE::TILE);
 		}
 	}
 }

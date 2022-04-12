@@ -11,6 +11,7 @@ struct tAnimFrm
 	Vec2 vLT;
 	Vec2 vSlice;
 	float fDuration; // 유지 시간값 ( 프레임 전환에 걸리는 시간 )
+	Vec2 vOffset;	 // 충돌체의 위치와 실제 렌더링의 위치를 다르게 할 수 있음
 
 
 };
@@ -49,6 +50,10 @@ public:
 		m_iCurFrm = _iFrameIdx;
 		m_fAccTime = 0.f;
 	}
+
+	// 받아간쪽에서 수정 가능하게 레퍼런스
+	tAnimFrm& GetFrame(int _iIdx) { return m_vecFrm[_iIdx]; }
+	int GetMaxFrame() { return (UINT)m_vecFrm.size(); }
 
 	friend class CAnimator;
 };

@@ -25,6 +25,7 @@ public:
 
 	HDC GetDC() { return m_dc; }
 
+
 	friend class CResMgr;
 };
 

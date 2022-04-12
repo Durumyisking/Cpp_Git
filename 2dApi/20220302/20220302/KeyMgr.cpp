@@ -18,7 +18,9 @@ int g_arrVK[(int)KEY::LAST] =
 	VK_LSHIFT,
 	VK_SPACE,
 	VK_RETURN,
-	VK_ESCAPE
+	VK_ESCAPE,
+
+	VK_LBUTTON, VK_RBUTTON,
 };
 
 
@@ -97,6 +99,15 @@ void CKeyMgr::update()
 				m_vecKey[i].bPrev = false;
 			}
 		}
+
+		POINT ptPos = {};
+
+		// getcursor는 window 전체 좌표를 가져오는것이기때문에 계산해줘야함
+		GetCursorPos(&ptPos);
+		// 스크린좌표에서 클라이언트 좌표로 바꿔주는것
+		ScreenToClient(CCore::GetInst()->GetMainHwnd(), &ptPos);
+		m_vCurMousePos = Vec2((float)ptPos.x, (float)ptPos.y);
+
 	}
 	else
 	{
