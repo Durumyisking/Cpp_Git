@@ -7,6 +7,10 @@
 #include "KeyMgr.h"
 #include "SceneMgr.h"
 
+#include "UI.h"
+
+#include "SelectGDI.h"
+
 #include "resource.h"
 
 
@@ -32,14 +36,36 @@ void CScene_Tool::update()
 
 }
 
+void CScene_Tool::render(HDC _dc)
+{
+	CSelectGDI pen(_dc, PEN_TYPE::GREEN);
+	CSelectGDI brush(_dc, BRUSH_TYPE::WHITE);
+
+	Rectangle(_dc, 0, 0, m_vResolution.x, m_vResolution.y);
+
+	CScene::render(_dc);
+}
+
 
 
 void CScene_Tool::Enter()
 {
-
-
 	// 타일 생성
 	CreateTile(4, 8);
+
+	CUI* pUI = new CUI;
+	pUI->SetScale(Vec2(500.f, 300.f));
+	pUI->SetPos(Vec2(m_vResolution.x -pUI->GetScale().x, 0.f));
+
+	CUI* pChildUI = new CUI;
+	pChildUI->SetScale(Vec2(100.f, 50.f));
+	pChildUI->SetPos(Vec2(0.f, 0.f));
+
+	pUI->AddChild(pChildUI);
+
+	AddObject(pUI, GROUP_TYPE::UI);
+
+
 
 	CCamera::GetInst()->SetLookAt(m_vResolution / 2.f);
 }
@@ -56,11 +82,20 @@ void CScene_Tool::SetTileIdx()
 	{
 		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
 
-		UINT iTileX = GetTileX();
-		UINT iTileY = GetTileY();
+		UINT iTileX = (int)GetTileX();
+		UINT iTileY = (int)GetTileY();
 
-		UINT iCol = (UINT)vMousePos.x / ROCK_SIZE;
-		UINT iRow = (UINT)vMousePos.y / ROCK_SIZE;
+		// 음수시 오류니까 UINT 말고 int로 쓰자
+		int iCol = (int)vMousePos.x / ROCK_SIZE;
+		int iRow = (int)vMousePos.y / ROCK_SIZE;
+
+		
+		// bmp에서 넘어갔을때 동작 안되게 처리
+		if (vMousePos.x < 0.f || iTileX <= iCol
+			|| vMousePos.y < 0.f || iTileY <= iRow)
+		{
+			return;
+		}
 
 		UINT iIdx = iRow * iTileX + iCol;
 

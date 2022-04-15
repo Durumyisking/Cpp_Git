@@ -15,6 +15,8 @@ CDoor::CDoor()
 	:m_pTex(nullptr)
 {
 	m_pTex = CResMgr::GetInst()->LoadTexture(L"DoorTex", L"texture\\BackGround\\door_01_normaldoor.bmp");
+
+
 	
 	SetScale(Vec2(128.f, 116.f));
 
@@ -22,7 +24,7 @@ CDoor::CDoor()
 	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
 	GetCollider()->SetScale(Vec2(128.f, 116.f));
 }
-
+	
 
 CDoor::~CDoor()
 {
@@ -40,7 +42,7 @@ void CDoor::render(HDC _dc)
 	int iHeight = (int)m_pTex->Height() / 5;
 
 
-	Vec2 vScale = GetScale();
+	Vec2 vScale = GetScale();	
 	Vec2 vPos = GetPos();
 	
 	TransparentBlt(_dc

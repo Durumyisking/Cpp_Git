@@ -48,7 +48,7 @@ void CSceneMgr::init()
 	//m_arrScene[(UINT)SCENE_TYPE::START] = new CScene_Stage02;
 
 	// ÇöÀç ¾À ¼³Á¤
-	m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::TOOL];
+	m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::START];
 	m_pCurScene->Enter();
 
 }

@@ -29,7 +29,7 @@ CScene_Start::CScene_Start()
 
 CScene_Start::~CScene_Start()
 {
-
+	DeleteAll();
 }
 
 
@@ -52,17 +52,20 @@ void CScene_Start::Enter()
 
 	// Door
 	CObject* pDoorN = new CDoor;
-	pDoorN->SetPos(Vec2(m_vResolution.x / 2, (pDoorN->GetScale().y / 2)));
-	pBody->SetName(L"DoorN");
+	pDoorN->SetPos(Vec2(m_vResolution.x / 2, (pDoorN->GetScale().y / 2) + 25.f));
+	pDoorN->SetName(L"DoorN");
+
 	CObject* pDoorS = new CDoor;
-	pDoorS->SetPos(Vec2(m_vResolution.x / 2, m_vResolution.y - (pDoorS->GetScale().y / 2)));
-	pBody->SetName(L"DoorS");
+	pDoorS->SetPos(Vec2(m_vResolution.x / 2, m_vResolution.y - (pDoorS->GetScale().y / 2) - 25.f));
+		pDoorS->SetName(L"DoorS");
+	
 	CObject* pDoorE = new CDoor;
-	pDoorE->SetPos(Vec2(m_vResolution.x - (pDoorE->GetScale().x / 2), m_vResolution.y / 2));
-	pBody->SetName(L"DoorE");
+	pDoorE->SetPos(Vec2(m_vResolution.x - (pDoorE->GetScale().x / 2) - 25.f, m_vResolution.y / 2));
+	pDoorE->SetName(L"DoorE");
+	
 	CObject* pDoorW = new CDoor;
-	pDoorW->SetPos(Vec2((pDoorS->GetScale().x / 2), m_vResolution.y / 2));
-	pBody->SetName(L"DoorW");
+	pDoorW->SetPos(Vec2((pDoorS->GetScale().x / 2)+25.f, m_vResolution.y / 2));
+	pDoorW->SetName(L"DoorW");
 
 	CreateObject(pDoorN, GROUP_TYPE::DOOR);
 	CreateObject(pDoorS, GROUP_TYPE::DOOR);
@@ -76,7 +79,8 @@ void CScene_Start::Enter()
 	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	//CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::PROJ_MONSTER);
 	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PROJ_PLAYER);
-	
+	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::DOOR);
+
 	CCamera::GetInst()->SetLookAt(m_vResolution / 2.f);
 }
 
@@ -96,7 +100,7 @@ void CScene_Start::update()
 
 	if (KEY_TAP(KEY::ENTER))
 	{
-		ChangeScene(SCENE_TYPE::STAGE_01);
+		ChangeScene(SCENE_TYPE::TOOL);
 	}
 
 

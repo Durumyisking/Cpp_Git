@@ -53,6 +53,13 @@ void CAnimator::Play(const wstring & _strName, bool _bRepeat)
 
 void CAnimator::update()
 {
+
+
+
+}
+
+void CAnimator::finalupdate()
+{
 	// 현재 진행중인 애니메이션 업데이트
 	if (nullptr != m_pCurAnim)
 	{
@@ -66,8 +73,6 @@ void CAnimator::update()
 			m_pCurAnim->SetFrame(0);
 		}
 	}
-
-
 }
 
 void CAnimator::render(HDC _dc)

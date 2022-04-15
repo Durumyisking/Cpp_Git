@@ -16,7 +16,7 @@ CPlayer::CPlayer()
 	: m_dPrevTime(fDT)
 	, m_fAttackDelay(0.38f)
 {
-	SetScale(Vec2(46.f, 35.f)); 
+	SetScale(HEAD_DEFAULT + BODY_DEFAULT - HEAD_BODY_GAP); 
 }
 
 
@@ -64,6 +64,13 @@ void CPlayer::OnCollision(CCollider * _pOther)
 
 void CPlayer::OnCollisionEnter(CCollider * _pOther)
 {
+	CObject* pOtherObj = _pOther->GetObj();
+
+	if (L"DoorN" == pOtherObj->GetName())
+	{
+		ChangeScene(SCENE_TYPE::TOOL);
+	}
+
 }
 
 void CPlayer::OnCollisionExit(CCollider * _pOther)

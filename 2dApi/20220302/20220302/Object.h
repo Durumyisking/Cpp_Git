@@ -46,11 +46,8 @@ public:
 public:
 	virtual void update() = 0;
 
-	// finalupdate는 오브젝트에서만 처리 할 것이기 때문에 오버라이딩 못하게 해야댐
-	// scene에서 관리하는 object* 객체가 이 함수를 사용해서 어차피 자식 포인터가 아니라
-	// 부모인 obj 포인터가 호출되는데 그래도 실수 막기위해
-	virtual void finalupdate() final;	// 끝에 final 쓰면 오버라이딩 안댐
-										// 모든 자식들은 이 finalupdate를 사용하게 되어있음
+	virtual void finalupdate();
+
 	virtual void render(HDC _dc);
 
 	void CreateCollider();

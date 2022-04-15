@@ -55,19 +55,20 @@ void CAnimation::render(HDC _dc)
 
 	CObject* pObj = m_pAnimator->GetObj();
 	Vec2 vPos = pObj->GetPos();
+	Vec2 vScale = pObj->GetScale();
 
 	// 우리는 애니메이션의 발쪽에 콜라이더를 둘거기 때문에 offset으로 애니메이션 위로 올릴거
 	// 진짜위치
 	vPos = vPos + m_vecFrm[m_iCurFrm].vOffset;
 
 	// 렌더링 위치
-	vPos = CCamera::GetInst()->GetRenderPos(vPos);
+//	vPos = CCamera::GetInst()->GetRenderPos(vPos);
 
 	TransparentBlt(_dc
-		, (int)(vPos.x - m_vecFrm[m_iCurFrm].vSlice.x / 2.f)
-		, (int)(vPos.y - m_vecFrm[m_iCurFrm].vSlice.y / 2.f)
-		, (int)(m_vecFrm[m_iCurFrm].vSlice.x)
-		, (int)(m_vecFrm[m_iCurFrm].vSlice.y)
+		, (int)(vPos.x - m_vecFrm[m_iCurFrm].vSlice.x / 2.f) - vScale.x / 3.f
+		, (int)(vPos.y - m_vecFrm[m_iCurFrm].vSlice.y / 2.f) - vScale.y / 3.f
+		, (int)(m_vecFrm[m_iCurFrm].vSlice.x) * 3
+		, (int)(m_vecFrm[m_iCurFrm].vSlice.y) * 3
 		, m_pTex->GetDC()
 		, (int)(m_vecFrm[m_iCurFrm].vLT.x)
 		, (int)(m_vecFrm[m_iCurFrm].vLT.y)

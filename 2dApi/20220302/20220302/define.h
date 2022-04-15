@@ -44,7 +44,9 @@
 #define TILE_SIZE 64
 #define ROCK_SIZE 32
 
-
+#define HEAD_DEFAULT Vec2(84.f, 75.f)
+#define BODY_DEFAULT Vec2(54.f, 30.f)
+#define HEAD_BODY_GAP Vec2(0.f, 40.f)
 
 
 
@@ -76,6 +78,8 @@ enum class GROUP_TYPE
 
 	DOOR,
 
+	UI = 31,
+
 	END = 32,
 };
 
@@ -106,6 +110,7 @@ enum class MISSILE_TYPE
 enum class BRUSH_TYPE
 {
 	HOLLOW,
+	WHITE,
 	END,
 
 };
